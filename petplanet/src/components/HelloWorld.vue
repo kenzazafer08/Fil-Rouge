@@ -12,7 +12,7 @@
          </div>
          <img src="../assets/bg.png" class="hidden sm:flex w-1/2"/>
      </div>
-     <div class="w-full h-screen"> 
+     <div class="w-full"> 
          <p class="text-center text-2xl m-10">New products</p>
          <div class="flex flex-col sm:flex-row justify-between items-center m-2"> 
               <div class="flex flex-col justify-around items-center"> 
@@ -53,18 +53,93 @@
      </div>
      <div class="w-full"> 
       <p class="text-center text-2xl m-10">Shop By Pet</p>
-      <div class="flex flex-wrap gap-4"> 
-         <img class="w-32 h-32 rounded-full border-2 border-green-700" src=""/> 
+      <div class="grid sm:grid-cols-6 gap-4 grid-cols-1 place-items-center h-sceen"> 
+         <div class="flex flex-col items-center justify-around"> 
+           <img src="../assets/image1.png"/>
+           <p>Cat</p>
+         </div>
+         <div class="flex flex-col items-center justify-around"> 
+           <img src="../assets/image6.png"/>
+           <p>Dog</p>
+         </div>
+         <div class="flex flex-col items-center justify-around"> 
+           <img src="../assets/image5.png"/>
+           <p>Fish</p>
+         </div>
+         <div class="flex flex-col items-center justify-around"> 
+           <img src="../assets/image4.png"/>
+           <p>Bird</p>
+         </div>
+         <div class="flex flex-col items-center justify-around"> 
+           <img src="../assets/image2.png"/>
+           <p>Reptile</p>
+         </div>
+         <div class="flex flex-col items-center justify-around"> 
+           <img src="../assets/image3.png"/>
+           <p>Small pet</p>
+         </div>
       </div>
      </div>
+     <div class="w-full text-white bg-black text-center my-10 p-2">Free delivery from 200 Dhs of accumulated purchases</div>
+     <div class="w-full my-10"> 
+      <p class="text-center text-2xl m-10">Shop By Categories</p>
+      <div class="grid sm:grid-cols-3 gap-4 grid-cols-1 place-items-center h-sceen"> 
+         <div class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
+           <img src="../assets/food.png"/>
+           <p class="font-bold">Food</p>
+         </div>
+         <div class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
+           <img src="../assets/wellness.png"/>
+           <p class="font-bold">Wellness</p>
+         </div>
+         <div class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
+           <img src="../assets/Accessories.png"/>
+           <p class="font-bold">Accessories</p>
+         </div>
+      </div>
+     </div>
+     <div class="w-full text-white bg-black text-center my-10 p-2">Benefit from a 10% discount on accumulated purchases from 300dh.</div>
+     <div class="w-full my-10"> 
+      <p class="text-center text-2xl m-10">What's happening</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-24 items-center">    
+        <div class="h-56 sm:w-1/3 w-2/3 rounded-2xl overflow-hidden shadow bg-center" :style="{ backdropFilter: 'brightness(150%)', backgroundImage: 'url(' + require('../assets/bolg1.png') + ')' }">
+          <div class="bg-black bg-opacity-50 h-full flex flex-col justify-end">
+            <p class="p-4 mt-4 text-white text-2xl font-bold">How to Remove a Tick from a Dog</p>
+            <a href="#" class="mb-4 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300">
+              Read more
+              <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="h-56 sm:w-1/3 w-2/3 rounded-2xl overflow-hidden shadow bg-center" :style="{ backdropFilter: 'brightness(150%)', backgroundImage: 'url(' + require('../assets/bolg2.png') + ')' }">
+          <div class="bg-black bg-opacity-50 h-full flex flex-col justify-end">
+            <p class="p-4 mt-4 text-white text-2xl font-bold">How to Help a Cat in Heat</p>
+            <a href="#" class="mb-4 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300">
+              Read more
+              <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+     </div>
+     <footer-component></footer-component>
   </div>
 </template>
 
 <script>
 import HeaderComponent from './inc/HeaderComponent.vue';
+import FooterComponent from './inc/FooterComponent.vue';
 export default {
   name: 'HelloWorld',
-  components :{HeaderComponent},
+  components :{HeaderComponent,FooterComponent},
+  data() {
+    return {
+    }
+  }
 }
 </script>
 
