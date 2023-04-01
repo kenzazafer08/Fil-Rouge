@@ -6,7 +6,7 @@
         <div class="hidden bg-green-700 w-full shadow-lg h-16 sm:flex justify-between items-center">
             <div class="ml-8  w-1/4 text-white text-sm font-medium flex justify-around items-center"> 
                 <router-link to="/">Home</router-link>
-                <a>Shop</a>
+                <router-link to="/shop">Shop</router-link>
                 <router-link to="/about">About</router-link>
                 <a>Blog</a>
             </div>
