@@ -3,13 +3,17 @@ import Home from '../components/HelloWorld.vue'
 import About from '../components/AboutComponent.vue'
 import Shop from '../components/ShopComponent.vue'
 import Blog from '../components/BlogComponent.vue'
+import Login from '../components/LoginComponent.vue'
+import Register from '../components/RegisterComponent.vue'
 
 
 const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
   { path: '/shop', component: Shop },
-  { path: '/blog' ,component: Blog}
+  { path: '/blog' ,component: Blog},
+  { path: '/login' ,component: Login},
+  { path: '/register' ,component: Register}
 ];
 
 const router = createRouter({
