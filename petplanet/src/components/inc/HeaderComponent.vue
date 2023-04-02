@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="">
         <div class="bg-white text-green-700 font-bold w-full h-10 hidden sm:flex justify-center items-center "> 
             <p>Get 50% off on selected items | shop now</p>
         </div>
@@ -8,7 +8,7 @@
                 <router-link to="/">Home</router-link>
                 <router-link to="/shop">Shop</router-link>
                 <router-link to="/about">About</router-link>
-                <a>Blog</a>
+                <router-link to="/blog">Blog</router-link>
             </div>
              <img src="./../../assets/whitelogo.png" class="w-16 h-12"/>
              <div class="w-1/4 text-white flex justify-around items-center"> 
