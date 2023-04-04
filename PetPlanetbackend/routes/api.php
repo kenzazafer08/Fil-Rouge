@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/login', 'AuthController@login');
-Route::post('/register', 'AuthController@register');
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
 
+Route::get('/test', function () {
+    return response()->json(['message' => 'This is a test endpoint']);
+});
