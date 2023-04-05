@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\usercontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
-Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
 
-Route::get('/Users', [App\Http\Controllers\UserController::class, 'index'])->middleware('admin');
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('users',[usercontroller::class,'users'])->middleware('Admin');
+});
+
+Route::post("login",[UserController::class,'index']);
+Route::post("register",[UserController::class,'register']);
