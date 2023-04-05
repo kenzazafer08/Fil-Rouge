@@ -17,7 +17,9 @@ use App\Http\Controllers\usercontroller;
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('users',[usercontroller::class,'users'])->middleware('Admin');
+    Route::post("logout",[UserController::class,'logout']);
 });
 
 Route::post("login",[UserController::class,'index']);
 Route::post("register",[UserController::class,'register']);
+
