@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       Route::group(['prefix' => 'categories'] , function(){
         Route::get('/',[Pcategoriecontroller::class,'index']);
         Route::post('/store',[Pcategoriecontroller::class,'store']);
+        Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);
       });
     });
     Route::post("logout",[UserController::class,'logout']);
