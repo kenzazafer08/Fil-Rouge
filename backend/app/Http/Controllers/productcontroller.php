@@ -18,17 +18,29 @@ class productcontroller extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $categorie = product::create([
+            'name' => $request->name,
+            'discription' => $request->discription,
+            'image' => $request->image,
+            'stock' => $request->stock,
+            'price' => $request->price,
+            'id_categorie' => $request->id_categorie,
+        ]);
+        $cat = [
+            'name' => $categorie->name,
+            'discription' => $categorie->discription,
+            'image' => $categorie->image,
+            'stock' => $categorie->stock,
+            'price' => $categorie->price,
+            'id_categorie' => $categorie->id_categorie
+        ];
+        return response()->json($cat,201);
     }
 
     /**
