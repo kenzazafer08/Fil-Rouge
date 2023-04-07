@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\Pcategoriecontroller;
+use App\Http\Controllers\productcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);
         Route::delete('/delete/{id}',[Pcategoriecontroller::class,'destroy']);
         Route::get('/{id}',[Pcategoriecontroller::class,'show']);
+      });
+      Route::group(['prefix' => 'products'] , function(){
+        Route::get('/',[productcontroller::class,'index']);
+        // Route::post('/store',[Pcategoriecontroller::class,'store']);
+        // Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);
+        // Route::delete('/delete/{id}',[Pcategoriecontroller::class,'destroy']);
+        // Route::get('/{id}',[Pcategoriecontroller::class,'show']);
       });
     });
     Route::post("logout",[UserController::class,'logout']);

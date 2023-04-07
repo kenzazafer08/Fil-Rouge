@@ -71,7 +71,8 @@ class Pcategoriecontroller extends Controller
      */
     public function destroy(string $id)
     {
-        $cat = Pcategorie::find($id);
+        $cat = Pcategorie::findOrfail($id);
+        $cat->producst()->delete();
         $cat->delete();
         $cat = [
             'massage' => 'Categorie deleted succesfuly'

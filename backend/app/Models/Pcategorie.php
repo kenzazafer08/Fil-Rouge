@@ -14,4 +14,8 @@ class Pcategorie extends Model
         'image',
     ];
     use HasFactory;
+    public function products()
+    {
+        return $this->hasMany(pcategorie::class);
+    }
 }
