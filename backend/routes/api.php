@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('/',[productcontroller::class,'index']);
         Route::post('/store',[productcontroller::class,'store']);
         Route::put('/update/{id}',[productcontroller::class,'update']);
-        // Route::delete('/delete/{id}',[Pcategoriecontroller::class,'destroy']);
+        Route::delete('/delete/{id}',[productcontroller::class,'destroy']);
         Route::get('/{id}',[productcontroller::class,'show']);
       });
     });

@@ -88,6 +88,11 @@ class productcontroller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cat = product::findOrfail($id);
+        $cat->delete();
+        $cat = [
+            'massage' => 'Product deleted succesfuly'
+          ];
+        return response()->json($cat,201);
     }
 }
