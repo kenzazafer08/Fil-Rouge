@@ -42,7 +42,8 @@ class Pcategoriecontroller extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cat = Pcategorie::find($id);
+        return response()->json($cat,201);
     }
 
     /**
