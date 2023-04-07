@@ -59,4 +59,19 @@ class usercontroller extends Controller
         
         return response(['message' => 'Logged out'], 200);
     }
+    public function author(){
+        return response(['users' => User::where('role','2')]);
+    }
+    public function addauthor(String $id){
+        $user = user::find($id);
+        $user->role = '2';
+        $user->save();
+        return response($user,201);
+    }
+    public function removeauthor(String $id){
+        $user = user::find($id);
+        $user->role = '1';
+        $user->save();
+        return response($user,201);
+    }
 }

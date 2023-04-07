@@ -34,6 +34,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::delete('/delete/{id}',[productcontroller::class,'destroy']);
         Route::get('/{id}',[productcontroller::class,'show']);
       });
+      Route::group(['prefix' => 'author'] , function(){
+        Route::get('/',[usercontroller::class,'author']);
+        Route::get('/store/{id}',[usercontroller::class,'addauthor']);
+        Route::get('/delete/{id}',[usercontroller::class,'removeauthor']);
+      });
     });
     Route::post("logout",[UserController::class,'logout']);
 });
