@@ -13,6 +13,6 @@ class product extends Model
     protected $fillable = ['name', 'discription','stock','id_categorie','image','price'];    
     public function pcategorie()
     {
-        return $this->belongsTo(pcategorie::class);
+        return $this->belongsTo(pcategorie::class,'id_categorie');
     }
 }

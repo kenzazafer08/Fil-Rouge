@@ -48,7 +48,16 @@ class productcontroller extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = product::find($id);
+        $cat = [
+           'name' => $product->name,
+           'discription' => $product->discription,
+           'price' => $product->price,
+           'stock' => $product->stock,
+           'image' => $product->image,
+           'categorie' => $product->pcategorie->name
+        ];
+        return response()->json($cat,201);
     }
 
     /**
