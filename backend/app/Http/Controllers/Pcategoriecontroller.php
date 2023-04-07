@@ -70,6 +70,11 @@ class Pcategoriecontroller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cat = Pcategorie::find($id);
+        $cat->delete();
+        $cat = [
+            'massage' => 'Categorie deleted succesfuly'
+          ];
+        return response()->json($cat,201);
     }
 }
