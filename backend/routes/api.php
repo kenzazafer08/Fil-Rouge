@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usercontroller;
+use App\Http\Controllers\Pcategoriecontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,13 @@ use App\Http\Controllers\usercontroller;
 */
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::get('users',[usercontroller::class,'users'])->middleware('Admin');
+    Route::group(['middleware' => 'Admin'] , function(){
+      Route::get('users',[usercontroller::class,'users']);
+      Route::group(['prefix' => 'categories'] , function(){
+        Route::get('/',[Pcategoriecontroller::class,'index']);
+        Route::post('/store',[Pcategoriecontroller::class,'store']);
+      });
+    });
     Route::post("logout",[UserController::class,'logout']);
 });
 
