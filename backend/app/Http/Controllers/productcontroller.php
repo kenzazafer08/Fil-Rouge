@@ -61,19 +61,26 @@ class productcontroller extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $cat = product::find($id);
+
+        $cat->name = $request->name;
+        $cat->discription = $request->discription;
+        $cat->image = $request->image;
+        $cat->price = $request->price;
+        $cat->stock = $request->stock;
+        $cat->id_categorie = $request->id_categorie;
+
+        $cat->save();
+        
+        $cat = [
+          'massage' => 'Product updated succesfuly'
+        ];
+
+        return response()->json($cat,201);
     }
 
     /**
