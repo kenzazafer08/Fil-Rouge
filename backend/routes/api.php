@@ -16,6 +16,8 @@ use App\Http\Controllers\productcontroller;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post("login",[UserController::class,'index']);
+Route::post("register",[UserController::class,'register']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['middleware' => 'Admin'] , function(){
@@ -43,6 +45,5 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("logout",[UserController::class,'logout']);
 });
 
-Route::post("login",[UserController::class,'index']);
-Route::post("register",[UserController::class,'register']);
+
 
