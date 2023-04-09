@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('id_categorie');
             $table->foreign('id_categorie')->references('id')->on('pcategories');
+            $table->integer('id_pet');
+            $table->foreign('id_pet')->references('id')->on('pets');
             $table->timestamps();
         });
     }

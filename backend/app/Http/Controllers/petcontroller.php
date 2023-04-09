@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pcategorie;
+use App\Models\pet;
 use Illuminate\Http\Request;
 
-class Pcategoriecontroller extends Controller
+class petcontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response(['categories' => Pcategorie::all()]);
+        return response(['pets' => pet::all()]);
     }
 
     /**
@@ -24,14 +24,12 @@ class Pcategoriecontroller extends Controller
      */
     public function store(Request $request)
     {
-        $categorie = Pcategorie::create([
+        $categorie = pet::create([
             'name' => $request->name,
-            'discription' => $request->discription,
             'image' => $request->image
         ]);
         $cat = [
             'name' => $categorie->name,
-            'discription' => $categorie->discription,
             'image' => $categorie->image
         ];
         return response()->json($cat,201);
@@ -42,7 +40,7 @@ class Pcategoriecontroller extends Controller
      */
     public function show(string $id)
     {
-        $cat = Pcategorie::find($id);
+        $cat = pet::find($id);
         return response()->json($cat,201);
     }
 
@@ -51,16 +49,15 @@ class Pcategoriecontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $cat = Pcategorie::find($id);
+        $cat = pet::find($id);
 
         $cat->name = $request->name;
-        $cat->discription = $request->discription;
         $cat->image = $request->image;
 
         $cat->save();
         
         $cat = [
-          'massage' => 'Categorie updated succesfuly'
+          'massage' => 'Pet updated succesfuly'
         ];
 
         return response()->json($cat,201);
@@ -71,11 +68,11 @@ class Pcategoriecontroller extends Controller
      */
     public function destroy(string $id)
     {
-        $cat = Pcategorie::findOrfail($id);
+        $cat = pet::findOrfail($id);
         $cat->products()->delete();
         $cat->delete();
         $cat = [
-            'massage' => 'Categorie deleted succesfuly'
+            'massage' => 'Pet deleted succesfuly'
           ];
         return response()->json($cat,201);
     }

@@ -69,7 +69,7 @@ class postcatcontroller extends Controller
     public function destroy(string $id)
     {
         $cat = postcat::findOrfail($id);
-        $cat->producst()->delete();
+        $cat->product()->delete();
         $cat->delete();
         $cat = [
             'massage' => 'Categorie deleted succesfuly'

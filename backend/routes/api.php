@@ -6,6 +6,7 @@ use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\Pcategoriecontroller;
 use App\Http\Controllers\postcatcontroller;
 use App\Http\Controllers\productcontroller;
+use App\Http\Controllers\petcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\productcontroller;
 Route::post("login",[UserController::class,'index']);
 Route::post("register",[UserController::class,'register']);
 Route::get('/categories',[Pcategoriecontroller::class,'index']);
+Route::get('/pet',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['middleware' => 'Admin'] , function(){
@@ -29,6 +31,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);
         Route::delete('/delete/{id}',[Pcategoriecontroller::class,'destroy']);
         Route::get('/{id}',[Pcategoriecontroller::class,'show']);
+      });
+      Route::group(['prefix' => 'pets'] , function(){
+        Route::post('/store',[petcontroller::class,'store']);
+        Route::put('/update/{id}',[petcontroller::class,'update']);
+        Route::delete('/delete/{id}',[petcontroller::class,'destroy']);
+        Route::get('/{id}',[petcontroller::class,'show']);
       });
       Route::group(['prefix' => 'products'] , function(){
         Route::post('/store',[productcontroller::class,'store']);

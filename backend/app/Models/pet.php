@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class pet extends Model
 {
     use HasFactory;
+    protected $table = 'pets';
+    protected $fillable = [
+        'name',
+        'discription',
+        'image',
+    ];
+    use HasFactory;
+    public function products()
+    {
+        return $this->hasMany(product::class);
+    }
 }

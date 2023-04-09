@@ -31,6 +31,7 @@ class productcontroller extends Controller
             'stock' => $request->stock,
             'price' => $request->price,
             'id_categorie' => $request->id_categorie,
+            'id_pet' => $request->id_pet
         ]);
         $cat = [
             'name' => $categorie->name,
@@ -38,7 +39,8 @@ class productcontroller extends Controller
             'image' => $categorie->image,
             'stock' => $categorie->stock,
             'price' => $categorie->price,
-            'categorie' => $categorie->pcategorie->name
+            'categorie' => $categorie->pcategorie->name,
+            'pet' => $categorie->pet->name
         ];
         return response()->json($cat,201);
     }
@@ -55,7 +57,8 @@ class productcontroller extends Controller
            'price' => $product->price,
            'stock' => $product->stock,
            'image' => $product->image,
-           'categorie' => $product->pcategorie->name
+           'categorie' => $product->pcategorie->name,
+           'pet' => $product->pet->name
         ];
         return response()->json($cat,201);
     }
@@ -73,6 +76,7 @@ class productcontroller extends Controller
         $cat->price = $request->price;
         $cat->stock = $request->stock;
         $cat->id_categorie = $request->id_categorie;
+        $cat->id_pet = $request->id_pet;
 
         $cat->save();
         

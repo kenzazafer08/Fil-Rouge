@@ -10,9 +10,13 @@ class product extends Model
 {
     protected $table = 'products';
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name', 'discription','stock','id_categorie','image','price'];    
+    protected $fillable = ['name', 'discription','stock','id_categorie','id_pet','image','price'];    
     public function pcategorie()
     {
         return $this->belongsTo(pcategorie::class,'id_categorie');
+    }
+    public function pet()
+    {
+        return $this->belongsTo(pet::class,'id_pet');
     }
 }
