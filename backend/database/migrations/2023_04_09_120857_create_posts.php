@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('Title');
             $table->longText('text');
             $table->string('image');
+            $table->integer('id_cat');
+            $table->foreign('id_cat')->references('id')->on('postcats');
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Pcategoriecontroller;
 use App\Http\Controllers\postcatcontroller;
 use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\petcontroller;
+use App\Http\Controllers\postcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::post("register",[UserController::class,'register']);
 Route::get('/categories',[Pcategoriecontroller::class,'index']);
 Route::get('/pet',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
+Route::get('/posts',[postcontroller::class,'index']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['middleware' => 'Admin'] , function(){
       Route::get('users',[usercontroller::class,'users']);
@@ -57,6 +59,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/update/{id}',[postcatcontroller::class,'update']);
         Route::delete('/delete/{id}',[postcatcontroller::class,'destroy']);
         Route::get('/{id}',[postcatcontroller::class,'show']);
+      });
+      Route::group(['prefix' => 'posts'] , function(){
+        Route::post('/store',[postcontroller::class,'store']);
+        Route::put('/update/{id}',[postcontroller::class,'update']);
+        Route::delete('/delete/{id}',[postcontroller::class,'destroy']);
+        Route::get('/{id}',[postcontroller::class,'show']);
       });
     });
     Route::post("logout",[UserController::class,'logout']);
