@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pcategorie extends Model
+class postcat extends Model
 {
-    protected $table = 'pcategories';
+    use HasFactory;
+    protected $table = 'postcats';
     protected $fillable = [
         'name',
         'discription',
         'image',
     ];
     use HasFactory;
-    public function products()
+    public function posts()
     {
-        return $this->hasMany(product::class);
+        return $this->hasMany(posts::class);
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\Pcategoriecontroller;
+use App\Http\Controllers\postcatcontroller;
 use App\Http\Controllers\productcontroller;
 
 /*
@@ -39,6 +40,15 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('/',[usercontroller::class,'author']);
         Route::get('/store/{id}',[usercontroller::class,'addauthor']);
         Route::get('/delete/{id}',[usercontroller::class,'removeauthor']);
+      });
+    });
+    Route::group(['middleware' => 'Author' ], function(){
+      Route::group(['prefix' => 'postcategorie'] , function(){
+        Route::get('/',[postcatcontroller::class,'index']);
+        Route::post('/store',[postcatcontroller::class,'store']);
+        Route::put('/update/{id}',[postcatcontroller::class,'update']);
+        Route::delete('/delete/{id}',[postcatcontroller::class,'destroy']);
+        Route::get('/{id}',[postcatcontroller::class,'show']);
       });
     });
     Route::post("logout",[UserController::class,'logout']);
