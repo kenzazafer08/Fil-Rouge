@@ -18,19 +18,18 @@ use App\Http\Controllers\productcontroller;
 */
 Route::post("login",[UserController::class,'index']);
 Route::post("register",[UserController::class,'register']);
-
+Route::get('/categories',[Pcategoriecontroller::class,'index']);
+Route::get('/products',[productcontroller::class,'index']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['middleware' => 'Admin'] , function(){
       Route::get('users',[usercontroller::class,'users']);
       Route::group(['prefix' => 'categories'] , function(){
-        Route::get('/',[Pcategoriecontroller::class,'index']);
         Route::post('/store',[Pcategoriecontroller::class,'store']);
         Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);
         Route::delete('/delete/{id}',[Pcategoriecontroller::class,'destroy']);
         Route::get('/{id}',[Pcategoriecontroller::class,'show']);
       });
       Route::group(['prefix' => 'products'] , function(){
-        Route::get('/',[productcontroller::class,'index']);
         Route::post('/store',[productcontroller::class,'store']);
         Route::put('/update/{id}',[productcontroller::class,'update']);
         Route::delete('/delete/{id}',[productcontroller::class,'destroy']);

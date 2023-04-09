@@ -38,7 +38,7 @@ class productcontroller extends Controller
             'image' => $categorie->image,
             'stock' => $categorie->stock,
             'price' => $categorie->price,
-            'id_categorie' => $categorie->id_categorie
+            'categorie' => $categorie->pcategorie->name
         ];
         return response()->json($cat,201);
     }
