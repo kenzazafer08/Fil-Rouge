@@ -124,22 +124,22 @@ created() {
       }
     },
     logout(){
-        const token = localStorage.getItem('token');
-        axios.post('http://127.0.0.1:8000/api/logout/', {
-          headers: {
-            Authorization: `Bearer ${token}` // include the token in the headers of the API request
-          }
-        }).then(response => {
-          this.authenticated = true;
-          console.log(response)
-          localStorage.clear();
-          this.$router.push('/'); // set the authenticated state to true
-        })
-        .catch(error => {
-          console.log(error.response.data);
-          // handle error response
-        });
-    }
+    const token = localStorage.getItem('token');
+    axios.post('http://127.0.0.1:8000/api/logout/', {}, {
+      headers: {
+        Authorization: `Bearer ${token}` // include the token in the headers of the API request
+      }
+    }).then(response => {
+      this.authenticated = true;
+      console.log(response)
+      localStorage.clear();
+      this.$router.push('/'); // set the authenticated state to true
+    })
+    .catch(error => {
+      console.log(error.response.data);
+      // handle error response
+    });
+}
 }
 }
 </script>
