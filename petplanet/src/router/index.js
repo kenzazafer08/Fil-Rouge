@@ -6,6 +6,7 @@ import Blog from '../components/BlogComponent.vue'
 import Login from '../components/LoginComponent.vue'
 import Register from '../components/RegisterComponent.vue'
 import Dashboard from '../components/Admin/DashboardComponent.vue'
+import Categorie from '../components/Admin/CategorieComponent.vue'
 
 
 const routes = [
@@ -15,7 +16,8 @@ const routes = [
   { path: '/blog' ,component: Blog},
   { path: '/login' ,component: Login},
   { path: '/register' ,component: Register},
-  { path: '/dashboard' ,component: Dashboard}
+  { path: '/dashboard' ,component: Dashboard},
+  { path: '/categorie' ,component: Categorie}
 ];
 
 const router = createRouter({

@@ -17,7 +17,7 @@
             <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow ">
                 <svg aria-hidden="true" class="flex-shrink-0 w-16 h-16 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-black" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                 <a href="#">
-                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900">Categorie</h5>
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900">Categories</h5>
                 </a>
                 <p class="font-normal text-gray-500 ">{{ categories }}</p>
                 <a href="#" class="inline-flex items-center text-green-600 hover:underline">
