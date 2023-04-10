@@ -19,12 +19,11 @@ class usercontroller extends Controller
                     'message' => ['These credentials do not match our records.']
                 ], 404);
             }
-        
-             $token = $user->createToken('my-app-token')->plainTextToken;
-        
+            $token = $user->createToken('my-app-token')->plainTextToken;
             $response = [
                 'user' => $user,
-                'token' => $token
+                'token' => $token,
+                'role' => $user->role
             ];
         
              return response($response, 201);
@@ -58,7 +57,6 @@ class usercontroller extends Controller
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
-        
         return response(['message' => 'Logged out'], 200);
     }
     public function author(){
@@ -77,15 +75,17 @@ class usercontroller extends Controller
         return response($user,201);
     }
     public function statistics(){
-        $users = user::where('role','0')->count();
-        $authors = user::where('role','2')->count();
+        $users = user::count();
         $categories = Pcategorie::count();
         $products = product::count();
         return response([
            'user' => $users,
-           'author' => $authors,
            'categories' => $categories,
            'products' => $products
         ]); 
+    }
+    public function show(String $id){
+        $user = user::find($id);
+        return response($user);
     }
 }

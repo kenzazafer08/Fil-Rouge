@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['middleware' => 'Admin'] , function(){
       Route::get('/statistics',[usercontroller::class,'statistics']);
       Route::get('users',[usercontroller::class,'users']);
+      Route::get('user/{id}',[usercontroller::class,'show']);
       Route::group(['prefix' => 'categories'] , function(){
         Route::post('/store',[Pcategoriecontroller::class,'store']);
         Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);

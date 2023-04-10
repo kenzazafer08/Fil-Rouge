@@ -26,15 +26,15 @@
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
               <div class="px-4 py-3" role="none">
                 <p class="text-sm text-black" role="none">
-                  Admin
+                  {{user.name}}
                 </p>
                 <p class="text-sm font-medium text-black truncate dark:text-gray-300" role="none">
-                  Admin@PetPlanet.com
+                    {{user.email}}
                 </p>
               </div>
               <ul class="py-1" role="none">
                 <li>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                  <button @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</button>
                 </li>
               </ul>
             </div>
@@ -86,13 +86,61 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'SideBar',
     data() {
         return{
-          
+            authenticated: false, // initially set the authenticated state to false
+            user: {}
         }
+    },
+created() {
+    // check if the user is authenticated on component creation
+    this.checkAuthentication();
+  },
+  methods: {
+    checkAuthentication() {
+      const token = localStorage.getItem('token'); // get the token from the local storage
+      const role = localStorage.getItem('role');
+      const id = localStorage.getItem('id')
+      if (token && role == 1) {
+        axios.get('http://127.0.0.1:8000/api/user/'+id, {
+          headers: {
+            Authorization: `Bearer ${token}` // include the token in the headers of the API request
+          }
+        })
+        .then(response => {
+          this.authenticated = true; // set the authenticated state to true
+          this.user = response.data; // set the user data
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          // handle error response
+        });
+      }else{
+        this.$router.push('/');
+        this.$swal(`Log in First`);
+      }
+    },
+    logout(){
+        const token = localStorage.getItem('token');
+        axios.post('http://127.0.0.1:8000/api/logout/', {
+          headers: {
+            Authorization: `Bearer ${token}` // include the token in the headers of the API request
+          }
+        }).then(response => {
+          this.authenticated = true;
+          console.log(response)
+          localStorage.clear();
+          this.$router.push('/'); // set the authenticated state to true
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          // handle error response
+        });
     }
+}
 }
 </script>
 

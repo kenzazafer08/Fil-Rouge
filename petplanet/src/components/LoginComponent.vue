@@ -8,21 +8,21 @@
   </div>
   <div class="absolute z-10">
     <h5 class="text-2xl text-green-500 text-center">Welcome To your pet planet</h5>
-    <form class="px-8 pt-6 pb-8 mb-4">
+    <form class="px-8 pt-6 pb-8 mb-4" @submit.prevent="login">
       <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="username">
           Email
         </label>
-        <input class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-non" id="username" type="text" placeholder="email@gmail.com">
+        <input v-model="email" class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-non" id="username" type="text" placeholder="email@gmail.com">
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-bold mb-2" for="password">
           Password
         </label>
-        <input class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" id="password" type="password" placeholder="********">
+        <input v-model="password" class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" id="password" type="password" placeholder="********">
       </div>
       <div class="flex items-center justify-between">
-        <button class="bg-green-700 hover:bg-green-500 text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline" type="button">
+        <button type="submit" class="bg-green-700 hover:bg-green-500 text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline">
           Sign In
         </button>
       </div>
@@ -35,11 +35,37 @@
 </div>
 </template>
 <script>
+import axios from 'axios';
   export default {
     name: 'LoginComponent',
     components :{},
     data() {
       return {
+        email : '',
+        password : '',
+      };
+    },
+    methods : {
+      login(){
+        axios.post('http://127.0.0.1:8000/api/login', {
+        email: this.email,
+        password: this.password
+      })
+      .then(response => {
+        console.log(response.data);
+        localStorage.setItem('token', response.data.token); // store the token in the local storage
+        localStorage.setItem('role', response.data.role); // store the token in the local storage
+        localStorage.setItem('id',response.data.user.id);
+        if(response.data.role == 1){
+          this.$router.push('/dashboard')
+        }
+        else this.$router.push('/')
+        // handle successful response
+      })
+      .catch(error => {
+        console.log(error.response.data);
+        // handle error response
+      });
       }
     }
   }
