@@ -88,6 +88,11 @@
 <script>
 export default {
     name: 'SideBar',
+    data() {
+        return{
+          
+        }
+    }
 }
 </script>
 

@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="">
         <div class="bg-white text-green-700 font-bold w-full h-10 hidden sm:flex justify-center items-center "> 
             <p>Get 50% off on selected items | shop now</p>
@@ -79,6 +80,7 @@
                     </li>
                     </ul>
                 </div>
+            </div>
 </template>
 <script>
 export default {

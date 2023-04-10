@@ -2,7 +2,7 @@
     <div>
   <side-bar></side-bar>
     <div class="p-4 sm:ml-64">
-        
+
     </div>
 </div>
 </template>
@@ -14,7 +14,17 @@
     components :{SideBar},
     data() {
       return {
+        users : '',
+        categories : '',
+        products : '',
+        orders : ''
       }
+    },
+    mounted() {
+
+    },
+    methods:{
+        
     }
   }
   </script>

@@ -27,6 +27,7 @@ Route::get('/products',[productcontroller::class,'index']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['middleware' => 'Admin'] , function(){
+      Route::get('/statistics',[usercontroller::class,'statistics']);
       Route::get('users',[usercontroller::class,'users']);
       Route::group(['prefix' => 'categories'] , function(){
         Route::post('/store',[Pcategoriecontroller::class,'store']);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pcategorie;
+use App\Models\product;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -73,5 +75,17 @@ class usercontroller extends Controller
         $user->role = '1';
         $user->save();
         return response($user,201);
+    }
+    public function statistics(){
+        $users = user::where('role','0')->count();
+        $authors = user::where('role','2')->count();
+        $categories = Pcategorie::count();
+        $products = product::count();
+        return response([
+           'user' => $users,
+           'author' => $authors,
+           'categories' => $categories,
+           'products' => $products
+        ]); 
     }
 }
