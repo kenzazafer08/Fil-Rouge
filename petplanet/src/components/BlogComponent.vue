@@ -87,7 +87,7 @@
   import HeaderComponent from './inc/HeaderComponent.vue';
   import FooterComponent from './inc/FooterComponent.vue';
   export default {
-    name: 'HelloWorld',
+    name: 'BlogComponent',
     components :{HeaderComponent,FooterComponent},
     data() {
       return {
