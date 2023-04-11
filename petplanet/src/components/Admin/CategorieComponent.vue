@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import SideBar from '../inc/SideBar.vue';
 export default {
@@ -118,6 +119,19 @@ export default {
         timeout: 5000 // add a timeout of 5 seconds 
         }).then(response=>{
           const test = response.data;
+          
+          Swal.fire({
+            title: 'Done',
+            text: "Categorie registered succesfuly",
+            icon: 'succes',
+            confirmButtonColor: '#5D9C59',
+            confirmButtonText: 'Done'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Handle delete confirmation
+            }
+          });
+          document.getElementById('cat-modal').classList.add('hidden');
           console.log(test);
         }).catch(error => {
           console.log(error.response.data);
