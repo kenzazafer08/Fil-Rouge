@@ -23,19 +23,33 @@ class Pcategoriecontroller extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $categorie = Pcategorie::create([
-            'name' => $request->name,
-            'discription' => $request->discription,
-            'image' => $request->image
-        ]);
-        $cat = [
-            'name' => $categorie->name,
-            'discription' => $categorie->discription,
-            'image' => $categorie->image
-        ];
-        return response()->json($cat,201);
+{
+    $image = $request->image;
+    if (!$image) {
+        return response()->json(['error' => 'No image provided'], 400);
     }
+    
+    try {
+
+        $image->move('C:\Users\adm\Desktop\Fil-Rouge\petplanet\public\uploads',$image->getClientOriginalName());
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to upload image'], 500);
+    }
+    
+    $categorie = Pcategorie::create([
+        'name' => $request->name,
+        'discription' => $request->discription,
+        'image' => $image->getClientOriginalName()
+    ]);
+    
+    $cat = [
+        'name' => $categorie->name,
+        'discription' => $categorie->discription,
+        'image' => $categorie->image
+    ];
+    
+    return response()->json($cat, 201);
+}
 
     /**
      * Display the specified resource.
