@@ -16,7 +16,7 @@
             </button>
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 ">Add new categorie</h3>
-                <form class="space-y-6" @submit.prevent="register">
+                <form class="space-y-6" @submit.prevent="register()">
                   <div class="w-full flex justify-center">
                     <img v-if="Catimage" v-bind:src="Catimage" alt="Placeholder Image" width="200">
                     <img v-else src="../../assets/image.svg" width="200" />
@@ -68,11 +68,12 @@
                 </td>
                 <td class="px-6 py-4">
                     <a href="#" class="font-medium text-green-600  hover:underline">Edit</a>
-                    <a href="#" class="pl-2 font-medium text-green-600  hover:underline">Delete</a>
+                    <a href="#" class="pl-2 font-medium text-green-600  hover:underline" @click.prevent="confirmDelete(cat.id)">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
+
 </div>
 </div>
   </div>
@@ -102,6 +103,7 @@ export default {
     },
     methods : {
       register(){
+  
         const token = localStorage.getItem('token');
         console.log(this.cat.image);
         
@@ -123,16 +125,17 @@ export default {
           Swal.fire({
             title: 'Done',
             text: "Categorie registered succesfuly",
-            icon: 'succes',
+            icon: 'success',
             confirmButtonColor: '#5D9C59',
             confirmButtonText: 'Done'
           }).then((result) => {
             if (result.isConfirmed) {
-              // Handle delete confirmation
+              document.getElementById('cat-modal').classList.add('hidden');
+              this.getAll()
+              console.log(test);
             }
           });
-          document.getElementById('cat-modal').classList.add('hidden');
-          console.log(test);
+          
         }).catch(error => {
           console.log(error.response.data);
           // handle error response
@@ -159,6 +162,43 @@ export default {
           console.log(this.cat.image)
         };
       },
+      confirmDelete(cat) {
+        Swal.fire({
+            title: 'Ok',
+            text: "You are sure you wanna delete this categorie",
+            icon: 'warning',
+            confirmButtonColor: '#5D9C59',
+            confirmButtonText: "Yes I'm sure",
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.deleteCategory(cat)
+            }
+          });
+      },
+      deleteCategory(cat) {
+        const token = localStorage.getItem('token');
+        axios.delete('http://127.0.0.1:8000/api/categories/delete/' + cat,{headers: {
+            Authorization: `Bearer ${token}` // include the token in the headers of the API request
+          }}).then(response =>{
+            console.log(response);
+            Swal.fire({
+            title: 'Done',
+            text: "Categorie Deleted succesfuly",
+            icon: 'succes',
+            confirmButtonColor: '#5D9C59',
+            confirmButtonText: 'Done'
+            }).then((result) => {
+            if (result.isConfirmed) {
+              this.getAll()
+              console.log('test');
+            }
+            });
+          }).catch(error =>{
+            console.log(error.response.data)
+          })
+      }
     }
 }
 </script>
