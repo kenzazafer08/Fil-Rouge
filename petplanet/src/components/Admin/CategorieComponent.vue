@@ -30,7 +30,7 @@
                         <label for="Discription" class="block mb-2 text-sm font-medium text-gray-900">Discription</label>
                         <input type="Discription" v-model="cat.discription" id="Discription" placeholder="The best food for your pet" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
-                    <button type="submit" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Done</button>
+                    <button data-modal-hide="cat-modal" type="submit" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Done</button>
                 </form>
             </div>
         </div>
@@ -67,7 +67,7 @@
                   {{ cat.discription }}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-green-600  hover:underline">Edit</a>
+                    <button href="#" class="font-medium text-green-600  hover:underline" data-modal-target="cat-modal" data-modal-toggle="cat-modal" @click.prevent="edit(cat.id)">Edit</button>
                     <a href="#" class="pl-2 font-medium text-green-600  hover:underline" @click.prevent="confirmDelete(cat.id)">Delete</a>
                 </td>
             </tr>
@@ -121,7 +121,6 @@ export default {
         timeout: 5000 // add a timeout of 5 seconds 
         }).then(response=>{
           const test = response.data;
-          
           Swal.fire({
             title: 'Done',
             text: "Categorie registered succesfuly",
@@ -130,7 +129,6 @@ export default {
             confirmButtonText: 'Done'
           }).then((result) => {
             if (result.isConfirmed) {
-              document.getElementById('cat-modal').classList.add('hidden');
               this.getAll()
               console.log(test);
             }
@@ -180,6 +178,28 @@ export default {
       deleteCategory(cat) {
         const token = localStorage.getItem('token');
         axios.delete('http://127.0.0.1:8000/api/categories/delete/' + cat,{headers: {
+            Authorization: `Bearer ${token}` // include the token in the headers of the API request
+          }}).then(response =>{
+            console.log(response);
+            Swal.fire({
+            title: 'Done',
+            text: "Categorie Deleted succesfuly",
+            icon: 'succes',
+            confirmButtonColor: '#5D9C59',
+            confirmButtonText: 'Done'
+            }).then((result) => {
+            if (result.isConfirmed) {
+              this.getAll()
+              console.log('test');
+            }
+            });
+          }).catch(error =>{
+            console.log(error.response.data)
+          })
+      },
+      edit(id){
+        const token = localStorage.getItem('token');
+        axios.get('http://127.0.0.1:8000/api/categories/show/' + cat,{headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
           }}).then(response =>{
             console.log(response);

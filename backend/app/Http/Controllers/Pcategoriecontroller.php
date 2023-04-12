@@ -31,7 +31,7 @@ class Pcategoriecontroller extends Controller
     
     try {
 
-        $image->move('C:\Users\adm\Desktop\Fil-Rouge\petplanet\public\uploads',$image->getClientOriginalName());
+        $image->move(public_path('uploads'),$image->getClientOriginalName());
     } catch (\Exception $e) {
         return response()->json(['error' => 'Failed to upload image'], 500);
     }
