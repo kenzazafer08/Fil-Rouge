@@ -51,8 +51,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       });
       Route::group(['prefix' => 'author'] , function(){
         Route::get('/',[usercontroller::class,'author']);
-        Route::get('/store/{id}',[usercontroller::class,'addauthor']);
-        Route::get('/delete/{id}',[usercontroller::class,'removeauthor']);
+        Route::put('/store/{id}',[usercontroller::class,'changerole']);
+        Route::get('/delete/{id}',[usercontroller::class,'remove']);
       });
     });
     Route::group(['middleware' => 'Author' ], function(){

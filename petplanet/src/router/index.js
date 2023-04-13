@@ -8,6 +8,7 @@ import Register from '../components/RegisterComponent.vue'
 import Dashboard from '../components/Admin/DashboardComponent.vue'
 import Categorie from '../components/Admin/CategorieComponent.vue'
 import EditCatVue from '@/components/Admin/EditCat.vue'
+import Users from '@/components/Admin/UsersComponent.vue'
 
 
 const routes = [
@@ -20,6 +21,7 @@ const routes = [
   { path: '/dashboard' ,component: Dashboard},
   { path: '/categorie' ,component: Categorie},
   { path: '/Editcategorie/:id' ,component: EditCatVue ,name:'Editcategorie',props: true},
+  { path: '/Users' ,component: Users},
 ];
 
 const router = createRouter({

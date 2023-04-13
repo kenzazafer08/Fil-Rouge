@@ -62,16 +62,15 @@ class usercontroller extends Controller
     public function author(){
         return response(['users' => User::where('role','2')]);
     }
-    public function addauthor(String $id){
+    public function changerole(String $id,Request $request){
         $user = user::find($id);
-        $user->role = '2';
+        $user->role = $request->role;
         $user->save();
         return response($user,201);
     }
-    public function removeauthor(String $id){
+    public function remove(String $id){
         $user = user::find($id);
-        $user->role = '1';
-        $user->save();
+        $user->delete();
         return response($user,201);
     }
     public function statistics(){
