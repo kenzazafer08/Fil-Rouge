@@ -122,11 +122,13 @@ methods : {
                 icon: "info",
                 confirmButtonColor: "#5D9C59",
                 confirmButtonText: 'Done',
-                preConfirm: () => {
-                const role = Swal.getPopup().querySelector('#role').value
+                showCancelButton: true,
+        }).then(result => {
+            if (result.isConfirmed) {
+            const role = Swal.getPopup().querySelector('#role').value
                 console.log(role);
-            this.formData.set("role", role);
-            this.formData.append('_method', 'PUT');
+                this.formData.set("role", role);
+                this.formData.append('_method', 'PUT');
                 axios.post("http://127.0.0.1:8000/api/author/store/"+id,this.formData,{
                headers: {
               "Content-Type": "multipart/form-data",
@@ -138,8 +140,6 @@ methods : {
                 .catch((error) => {
                 console.log(error.response.data);
                 });
-            }
-        }).then(result => {
             console.log(result)
             this.getAll();
             Swal.fire({
@@ -153,7 +153,7 @@ methods : {
               console.log("test");
             }
           })
-        })
+    }})
     }
 }
 }
