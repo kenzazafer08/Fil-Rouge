@@ -4,13 +4,13 @@
         <div class="w-full flex justify-center pl-4 pt-20 sm:pl-24">
         <div class="">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 text-center">
-                  Edit {{ cat.name }} category
+                  Edit {{ p.name }} category
                 </h3>
                 <form class="space-y-6" @submit.prevent="update()">
                   <div class="w-full flex justify-center">
                     <img
-                      v-if="Catimage"
-                      v-bind:src="Catimage"
+                      v-if="Petimage"
+                      v-bind:src="Petimage"
                       alt="Placeholder Image"
                       width="200"
                     />
@@ -29,25 +29,10 @@
                     >
                     <input
                       type="text"
-                      v-model="cat.name"
+                      v-model="p.name"
                       id="name"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                       placeholder="Food"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      for="Discription"
-                      class="block mb-2 text-sm font-medium text-gray-900"
-                      >Discription</label
-                    >
-                    <input
-                      type="Discription"
-                      v-model="cat.discription"
-                      id="Discription"
-                      placeholder="The best food for your pet"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                       required
                     />
                   </div>
@@ -70,16 +55,15 @@
   import SideBar from '../inc/SideBar.vue'
   export default {    
       components :{SideBar},
-      name: 'EditCategorie',
+      name: 'EditPet',
       props: ['id'],
       data() {
         return {
-        cat: {
+        p: {
           name: "",
-          discription: "",
           image: [],
         },
-        Catimage: "",
+        Petimage: "",
         formData : new FormData()
         }
       },
@@ -94,16 +78,15 @@
         },
           getCat(){
           axios
-          .get("http://127.0.0.1:8000/api/categories/"+this.id, {
+          .get("http://127.0.0.1:8000/api/pets/"+this.id, {
             headers: {
               Authorization: `Bearer ${token}`, // include the token in the headers of the API request
             },
           })
           .then((response) => {
             // set the authenticated state to true
-            this.cat.name = response.data.name
-            this.cat.discription = response.data.discription
-            this.Catimage = this.image(response.data.image)
+            this.p.name = response.data.name
+            this.Petimage = this.image(response.data.image)
           })
           .catch((error) => {
             console.log(error.response.data);
@@ -115,21 +98,20 @@
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-          this.Catimage = reader.result;
-          this.cat.image = file;
-          console.log(this.cat.image);
+          this.Petimage = reader.result;
+          this.p.image = file;
+          console.log(this.p.image);
         };
       },
       update() {
         const token = localStorage.getItem("token");
-        console.log(this.cat);
-        this.formData.set("name", this.cat.name);
-        this.formData.set("discription", this.cat.discription);
-        this.formData.set("image", this.cat.image);
+        console.log(this.p);
+        this.formData.set("name", this.p.name);
+        this.formData.set("image", this.p.image);
         this.formData.append('_method', 'PUT');
         console.log(this.formData);
           axios
-            .post(`http://127.0.0.1:8000/api/categories/update/${this.id}` , this.formData, {
+            .post(`http://127.0.0.1:8000/api/pets/update/${this.id}` , this.formData, {
               headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`, // include the token in the headers of the API request
@@ -140,13 +122,13 @@
               const test = response.data;
               Swal.fire({
                 title: "Done",
-                text: "Categorie updated succesfuly",
+                text: "Pet updated succesfuly",
                 icon: "success",
                 confirmButtonColor: "#5D9C59",
                 confirmButtonText: "Done",
               }).then((result) => {
                 if (result.isConfirmed) {
-                  this.$router.push('/categorie')
+                  this.$router.push('/pet')
                   console.log(test)
                 }
               });
