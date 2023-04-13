@@ -7,6 +7,7 @@ import Login from '../components/LoginComponent.vue'
 import Register from '../components/RegisterComponent.vue'
 import Dashboard from '../components/Admin/DashboardComponent.vue'
 import Categorie from '../components/Admin/CategorieComponent.vue'
+import EditCatVue from '@/components/Admin/EditCat.vue'
 
 
 const routes = [
@@ -17,7 +18,8 @@ const routes = [
   { path: '/login' ,component: Login},
   { path: '/register' ,component: Register},
   { path: '/dashboard' ,component: Dashboard},
-  { path: '/categorie' ,component: Categorie}
+  { path: '/categorie' ,component: Categorie},
+  { path: '/Editcategorie/:id' ,component: EditCatVue ,name:'Editcategorie',props: true},
 ];
 
 const router = createRouter({
