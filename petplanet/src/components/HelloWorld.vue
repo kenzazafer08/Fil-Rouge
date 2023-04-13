@@ -54,29 +54,9 @@
      <div class="w-full"> 
       <p class="text-center text-2xl m-10">Shop By Pet</p>
       <div class="grid sm:grid-cols-6 gap-4 grid-cols-1 place-items-center h-sceen"> 
-         <div class="flex flex-col items-center justify-around"> 
-           <img src="../assets/image1.png"/>
-           <p>Cat</p>
-         </div>
-         <div class="flex flex-col items-center justify-around"> 
-           <img src="../assets/image6.png"/>
-           <p>Dog</p>
-         </div>
-         <div class="flex flex-col items-center justify-around"> 
-           <img src="../assets/image5.png"/>
-           <p>Fish</p>
-         </div>
-         <div class="flex flex-col items-center justify-around"> 
-           <img src="../assets/image4.png"/>
-           <p>Bird</p>
-         </div>
-         <div class="flex flex-col items-center justify-around"> 
-           <img src="../assets/image2.png"/>
-           <p>Reptile</p>
-         </div>
-         <div class="flex flex-col items-center justify-around"> 
-           <img src="../assets/image3.png"/>
-           <p>Small pet</p>
+         <div v-for="pet in pets" :key="pet.id" class="flex flex-col items-center justify-around"> 
+           <img :src="image(pet.image)"/>
+           <p>{{pet.name}}</p>
          </div>
       </div>
      </div>
@@ -132,11 +112,13 @@ export default {
   components :{HeaderComponent,FooterComponent},
   data() {
     return {
-      categories : []
+      categories : [],
+      pets : []
     }
   },
   mounted(){
     this.getCategories()
+    this.getPets()
   },
   methods : {
     getCategories(){
@@ -146,6 +128,19 @@ export default {
         .then((response) => {
           // set the authenticated state to true
           this.categories = response.data.categories;
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          // handle error response
+        });
+    },
+    getPets(){
+      console.log('test')
+      axios
+        .get("http://127.0.0.1:8000/api/pets")
+        .then((response) => {
+          // set the authenticated state to true
+          this.pets = response.data.pets;
         })
         .catch((error) => {
           console.log(error.response.data);
