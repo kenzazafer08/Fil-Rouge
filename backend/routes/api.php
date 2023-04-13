@@ -8,6 +8,7 @@ use App\Http\Controllers\postcatcontroller;
 use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\petcontroller;
 use App\Http\Controllers\postcontroller;
+use Spatie\Backtrace\File;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,16 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
 
+Route::get('/images/{filename}', function ($filename) {
+  $path = public_path('uploads/' . $filename);
+  if (!file_exists($path)) {
+      abort(404);
+  }
+  $file = file_get_contents($path);
+  $type = mime_content_type($path);
+  $response = response($file, 200);
+  $response->header("Content-Type", $type);
+
+  return $response;
+});
 

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+localStorage.setItem('path','@/../../backend/public/uploads/');
 export default {
   name: 'App',
   components: {

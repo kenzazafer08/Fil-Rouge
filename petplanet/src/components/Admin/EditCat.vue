@@ -89,6 +89,9 @@ export default {
     }
     ,
     methods:{
+        image(name){
+      return 'http://127.0.0.1:8000/api/images/'+name;
+      },
         getCat(){
         axios
         .get("http://127.0.0.1:8000/api/categories/"+this.id, {
@@ -100,7 +103,7 @@ export default {
           // set the authenticated state to true
           this.cat.name = response.data.name
           this.cat.discription = response.data.discription
-          this.Catimage = '/uploads/'+response.data.image
+          this.Catimage = this.image(response.data.image)
         })
         .catch((error) => {
           console.log(error.response.data);

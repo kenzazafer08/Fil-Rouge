@@ -127,7 +127,7 @@
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
                 <img
-                  :src="'/uploads/' + cat.image"
+                :src="image(cat.image)"
                   class="w-32 h-32 rounded-full object-cover"
                 />
               </th>
@@ -138,7 +138,7 @@
                 {{ cat.discription }}
               </td>
               <td class="px-6 py-4">
-                <router-link :to="{name : 'Editcategorie' , params:{ id : cat.id}}"
+                <router-link :to="{name : 'Editcategorie' , params:{id : cat.id }}"
                   class="pl-2 font-medium text-green-600 hover:underline"
                 >
                   Edit
@@ -229,8 +229,7 @@ export default {
             console.log(error.response.data);
             // handle error response
           });
-      },    
-      handleFileUpload(event) {
+      },    handleFileUpload(event) {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -282,6 +281,9 @@ export default {
           console.log(error.response.data);
         });
   },
+  image(name){
+      return 'http://127.0.0.1:8000/api/images/'+name;
+  }
     }
 };
 </script>
