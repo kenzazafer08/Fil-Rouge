@@ -13,7 +13,8 @@
             </div>
              <img src="./../../assets/whitelogo.png" class="w-16 h-12"/>
              <div class="w-1/4 text-white flex justify-around items-center"> 
-                <div class="flex w-1/2 justify-center p-2 items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg><router-link to="/login">Sign Up</router-link></div>
+                <div v-if="authenticated" class="flex w-1/2 justify-center p-2 items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg> {{ user.name }}</div>                
+                <div v-else class="flex w-1/2 justify-center p-2 items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg><router-link to="/login">Sign Up</router-link></div>
                 <div class="mr-8 dropdown dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle">
                     <div class="indicator">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
                 </div>
+                <button v-if="authenticated" @click="logout"><img class="w-8 h-6 mr-4" src="../../assets/logout.svg"/></button>
              </div>
         </div>
         <div class="sm:hidden flex justify-between items-center bg-green-700"> 
@@ -55,6 +57,7 @@
                     </div>
                 </div>
                </div>
+               <button v-if="authenticated" @click="logout"><img class="w-8 h-6 mr-4" src="../../assets/logout.svg"/></button>
                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="mr-4" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg"> 
                         <path id="Subtract" fill-rule="evenodd" clip-rule="evenodd" d="M7.25 1.25C3.93629 1.25 1.25 3.93629 1.25 7.25V16.75C1.25 20.0637 3.93629 22.75 7.25 22.75H16.75C20.0637 22.75 22.75 20.0637 22.75 16.75V7.25C22.75 3.93629 20.0637 1.25 16.75 1.25H7.25ZM4.84615 7C4.51691 7 4.25 7.33579 4.25 7.75C4.25 8.16421 4.51691 8.5 4.84615 8.5H19.1538C19.4831 8.5 19.75 8.16421 19.75 7.75C19.75 7.33579 19.4831 7 19.1538 7H4.84615ZM4.25 12.25C4.25 11.8358 4.51691 11.5 4.84615 11.5H19.1538C19.4831 11.5 19.75 11.8358 19.75 12.25C19.75 12.6642 19.4831 13 19.1538 13H4.84615C4.51691 13 4.25 12.6642 4.25 12.25ZM4.84615 16C4.51691 16 4.25 16.3358 4.25 16.75C4.25 17.1642 4.51691 17.5 4.84615 17.5H19.1538C19.4831 17.5 19.75 17.1642 19.75 16.75C19.75 16.3358 19.4831 16 19.1538 16H4.84615Z" fill="#FFFFFF"/>
@@ -83,11 +86,74 @@
             </div>
 </template>
 <script>
+import Swal from 'sweetalert2';
+import axios from 'axios';
 export default {
   name: 'HeaderComponent',
   data() {
     return {
+        authenticated: false, // initially set the authenticated state to false
+        user: {}
     };
+   },
+   mounted(){
+    this.checkAuthentication()
+   }
+   ,
+   methods :{
+    checkAuthentication() {
+      const token = localStorage.getItem('token'); // get the token from the local storage
+      const role = localStorage.getItem('role');
+      const id = localStorage.getItem('id')
+      if (token) {
+        axios.get('http://127.0.0.1:8000/api/user/'+ id, {
+          headers: {
+            Authorization: `Bearer ${token}` // include the token in the headers of the API request
+          }
+        })
+        .then(response => {
+          this.authenticated = true; // set the authenticated state to true
+          this.user = response.data; 
+          console.log(this.user)// set the user data
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          // handle error response
+        });
+      }
+      if(role == '1'){
+        this.$router.push('/Dashboard')
+      }
+    },
+    logout(){
+    Swal.fire({
+        title: "Log Out",
+        text: "You are sure you wanna logout",
+        icon: "warning",
+        confirmButtonColor: "#5D9C59",
+        confirmButtonText: "Yes I'm sure",
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+    }).then(result =>{
+        if(result.isConfirmed){
+            const token = localStorage.getItem('token');
+            axios.post('http://127.0.0.1:8000/api/logout/', {}, {
+            headers: {
+                Authorization: `Bearer ${token}` // include the token in the headers of the API request
+            }
+            }).then(response => {
+            console.log(response)
+            localStorage.clear(); // set the authenticated state to true
+            this.authenticated = false,
+            this.user = {}
+            })
+            .catch(error => {
+            console.log(error.response.data);
+            // handle error response
+            });
+        }
+    })
+}
    }
 }
 </script>

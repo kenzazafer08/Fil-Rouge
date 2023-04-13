@@ -27,10 +27,10 @@ Route::get('/pet',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
+  Route::get('user/{id}',[usercontroller::class,'show']);
     Route::group(['middleware' => 'Admin'] , function(){
       Route::get('/statistics',[usercontroller::class,'statistics']);
       Route::get('users',[usercontroller::class,'users']);
-      Route::get('user/{id}',[usercontroller::class,'show']);
       Route::group(['prefix' => 'categories'] , function(){
         Route::post('/store',[Pcategoriecontroller::class,'store']);
         Route::put('/update/{id}',[Pcategoriecontroller::class,'update']);
