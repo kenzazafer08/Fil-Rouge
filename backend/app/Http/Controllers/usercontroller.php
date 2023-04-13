@@ -6,6 +6,7 @@ use App\Models\Pcategorie;
 use App\Models\product;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\pet;
 use Illuminate\Support\Facades\Hash;
 
 class usercontroller extends Controller
@@ -77,10 +78,12 @@ class usercontroller extends Controller
         $users = user::count();
         $categories = Pcategorie::count();
         $products = product::count();
+        $pets = pet::count();
         return response([
            'user' => $users,
            'categories' => $categories,
-           'products' => $products
+           'products' => $products,
+           'pets' => $pets
         ]); 
     }
     public function show(String $id){
