@@ -8,33 +8,33 @@
   </div>
   <div class="absolute z-4 mt-24">
     <h5 class="text-2xl text-green-500 text-center">Welcome To your pet planet</h5>
-    <form class="px-8 pt-6 pb-8 mb-4">
+    <form @submit.prevent="register" class="px-8 pt-6 pb-8 mb-4">
       <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="username">
           Email
         </label>
-        <input class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-non" id="username" type="text" placeholder="email@gmail.com">
+        <input required v-model="email" class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-non" id="username" type="text" placeholder="email@gmail.com">
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="username">
           Full Name
         </label>
-        <input class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-non" id="username" type="text" placeholder="ZAFER Kenza">
+        <input required v-model="name" class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-non" id="username" type="text" placeholder="ZAFER Kenza">
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-bold mb-2" for="password">
           Password
         </label>
-        <input class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" id="password" type="password" placeholder="********">
+        <input required v-model="password" class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" id="password" type="password" placeholder="********">
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-bold mb-2" for="password">
           Confirm Password
         </label>
-        <input class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" id="password" type="password" placeholder="********">
+        <input v-model="confirm" required class="shadow appearance-none border border-green-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" id="password" type="password" placeholder="********">
       </div>
       <div class="flex items-center justify-between">
-        <button class="bg-green-700 hover:bg-green-500 text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline" type="button">
+        <button class="bg-green-700 hover:bg-green-500 text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline" type="submit">
           Sign Up
         </button>
       </div>
@@ -47,11 +47,65 @@
 </div>
 </template>
 <script>
+import axios from 'axios';
+import Swal from 'sweetalert2';
   export default {
     name: 'RegisterComponent',
     components :{},
     data() {
       return {
+        email : '',
+        name : '',
+        password : '',
+        confirm : '',
+      }
+    },
+    methods : {
+      register(){
+        if(this.password == this.confirm){
+          axios.post('http://127.0.0.1:8000/api/register', {
+            email: this.email,
+            name : this.name,
+            password: this.password,
+          })
+          .then(response => {
+            if(response.data.message){
+               Swal.fire({
+                title : 'Somthing went wrong',
+                text : 'Try Again',
+                icon: "warning",
+                confirmButtonColor: "#5D9C59",
+                confirmButtonText: "Ok",
+               })
+            }else{
+            console.log(response.data);
+            localStorage.setItem('token', response.data.token); // store the token in the local storage
+            localStorage.setItem('role', response.data.role); // store the token in the local storage
+            localStorage.setItem('id',response.data.user.id);
+            this.$router.push('/')
+            }
+            // handle successful response
+          })
+          .catch(error => {
+            console.log(error.response.data);
+            // handle error response
+            Swal.fire({
+            title: 'Error!',
+            text: 'Something went wrong try again',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#5D9C59",
+          });
+          });
+        }else{
+          Swal.fire({
+            title: 'Error!',
+            text: 'Something went wrong try again',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#5D9C59",
+          });
+        }
       }
     }
   }
