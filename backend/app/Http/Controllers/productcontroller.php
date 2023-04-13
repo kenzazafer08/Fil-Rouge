@@ -12,7 +12,7 @@ class productcontroller extends Controller
      */
     public function index()
     {
-        return response(['products' => product::all()]);
+        return response(['products' => Product::with('pcategorie', 'pet')->get()]);
     }
 
     /**
