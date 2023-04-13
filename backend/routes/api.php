@@ -23,7 +23,7 @@ use Spatie\Backtrace\File;
 Route::post("login",[UserController::class,'index']);
 Route::post("register",[UserController::class,'register']);
 Route::get('/categories',[Pcategoriecontroller::class,'index']);
-Route::get('/pet',[petcontroller::class,'index']);
+Route::get('/pets',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::group(['middleware' => 'auth:sanctum'], function(){

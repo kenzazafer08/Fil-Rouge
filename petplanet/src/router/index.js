@@ -9,7 +9,8 @@ import Dashboard from '../components/Admin/DashboardComponent.vue'
 import Categorie from '../components/Admin/CategorieComponent.vue'
 import EditCatVue from '@/components/Admin/EditCat.vue'
 import Users from '@/components/Admin/UsersComponent.vue'
-
+import PetComponent from '@/components/Admin/PetComponent.vue'
+import EditPet from '@/components/Admin/EditPet.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -21,6 +22,8 @@ const routes = [
   { path: '/dashboard' ,component: Dashboard},
   { path: '/categorie' ,component: Categorie},
   { path: '/Editcategorie/:id' ,component: EditCatVue ,name:'Editcategorie',props: true},
+  { path: '/pet' ,component: PetComponent},
+  { path: '/Editpet/:id' ,component: EditPet ,name:'EditPet',props: true},
   { path: '/Users' ,component: Users},
 ];
 
