@@ -84,17 +84,10 @@
      <div class="w-full my-10"> 
       <p class="text-center text-2xl m-10">Shop By Categories</p>
       <div class="grid sm:grid-cols-3 gap-4 grid-cols-1 place-items-center h-sceen"> 
-         <div class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
-           <img src="../assets/food.png"/>
-           <p class="font-bold">Food</p>
-         </div>
-         <div class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
-           <img src="../assets/wellness.png"/>
-           <p class="font-bold">Wellness</p>
-         </div>
-         <div class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
-           <img src="../assets/Accessories.png"/>
-           <p class="font-bold">Accessories</p>
+         <div v-for="cat in categories"
+              :key="cat.id"  class="flex flex-col items-center justify-center bg-yellow-100 border-2 border-amber-200 w-64 h-56 rounded-2xl"> 
+           <img :src="image(cat.image)"/>
+           <p class="font-bold">{{cat.name}}</p>
          </div>
       </div>
      </div>
@@ -131,6 +124,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import HeaderComponent from './inc/HeaderComponent.vue';
 import FooterComponent from './inc/FooterComponent.vue';
 export default {
@@ -138,7 +132,29 @@ export default {
   components :{HeaderComponent,FooterComponent},
   data() {
     return {
+      categories : []
     }
+  },
+  mounted(){
+    this.getCategories()
+  },
+  methods : {
+    getCategories(){
+      console.log('test')
+      axios
+        .get("http://127.0.0.1:8000/api/categories")
+        .then((response) => {
+          // set the authenticated state to true
+          this.categories = response.data.categories;
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          // handle error response
+        });
+    },
+    image(name){
+      return 'http://127.0.0.1:8000/api/images/'+name;
+   }
   }
 }
 </script>
