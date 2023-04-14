@@ -21,6 +21,7 @@
               <th scope="col" class="px-6 py-3">Ctegorie</th>
               <th scope="col" class="px-6 py-3">Pet</th>
               <th scope="col" class="px-6 py-3">Action</th>
+              <th scope="col" class="px-6 py-3">Replenich</th>
             </tr>
           </thead>
           <tbody>
@@ -35,7 +36,7 @@
               >
                 <img
                 :src="image(product.image)"
-                  class="w-32 h-32 rounded-full object-cover"
+                  class="w-32 h-24 object-cover"
                 />
               </th>
               <td class="px-6 py-4">
@@ -67,6 +68,13 @@
                   class="pl-2 font-medium text-green-600 hover:underline"
                   @click.prevent="confirmDelete(product.id)"
                   >Delete</a
+                >
+              </td>
+              <td class="px-6 py-4">
+                <a
+                  href="#"
+                  class="pl-2 font-medium text-green-600 hover:underline"
+                  >Replenish</a
                 >
               </td>
             </tr>
@@ -162,7 +170,7 @@ export default {
         .catch((error) => {
           console.log(error.response.data);
         });
-  },
+      },
   }
 }
 </script>
