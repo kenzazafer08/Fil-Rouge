@@ -65,7 +65,7 @@
                 <a
                   href="#"
                   class="pl-2 font-medium text-green-600 hover:underline"
-                  @click.prevent="confirmDelete(cat.id)"
+                  @click.prevent="confirmDelete(product.id)"
                   >Delete</a
                 >
               </td>
@@ -80,7 +80,7 @@
 <script>
 import axios from 'axios'
 import SideBar from '../inc/SideBar.vue'
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 export default {
   components: { SideBar },
   data(){
@@ -120,7 +120,49 @@ export default {
     },
     image(name){
       return 'http://127.0.0.1:8000/api/images/'+name;
-  }
+  },    
+   confirmDelete(cat) {
+      Swal.fire({
+        title: "Ok",
+        text: "You are sure you wanna delete this categorie",
+        icon: "warning",
+        confirmButtonColor: "#5D9C59",
+        confirmButtonText: "Yes I'm sure",
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteCategory(cat);
+        }
+      });
+    },
+    deleteCategory(cat) {
+      const token = localStorage.getItem("token");
+      axios
+        .delete("http://127.0.0.1:8000/api/products/delete/" + cat, {
+          headers: {
+            Authorization: `Bearer ${token}`, // include the token in the headers of the API request
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          Swal.fire({
+            title: "Done",
+            text: "Categorie Deleted succesfuly",
+            icon: "succes",
+            confirmButtonColor: "#5D9C59",
+            confirmButtonText: "Done",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.getAll();
+              console.log("test");
+            }
+          });
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+  },
   }
 }
 </script>
