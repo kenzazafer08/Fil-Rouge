@@ -50,12 +50,12 @@
 <script>
 import Swal from 'sweetalert2';
 const token = localStorage.getItem("token");
-import SideBar from '../inc/SideBar.vue'
 import axios from 'axios'
+import SideBar from '../inc/SideBar.vue';
 export default {
   components: { SideBar },
 name : 'UsersComponent',
-component : {SideBar},
+
 data(){
     return{
         users : [],

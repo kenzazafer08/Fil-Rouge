@@ -24,10 +24,19 @@ class productcontroller extends Controller
      */
     public function store(Request $request)
     {
+        $image = $request->image;
+        if (!$image) {
+            return response()->json(['error' => 'No image provided'], 400);
+        }
+        try {
+            $image->move(public_path('uploads'),$image->getClientOriginalName());
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to upload image'], 500);
+        }
         $categorie = product::create([
             'name' => $request->name,
             'discription' => $request->discription,
-            'image' => $request->image,
+            'image' => $image->getClientOriginalName(),
             'stock' => $request->stock,
             'price' => $request->price,
             'id_categorie' => $request->id_categorie,
