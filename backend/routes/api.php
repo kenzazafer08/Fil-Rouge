@@ -26,6 +26,7 @@ Route::get('/categories',[Pcategoriecontroller::class,'index']);
 Route::get('/pets',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
 Route::get('/posts',[postcontroller::class,'index']);
+Route::get('/random',[productcontroller::class,'random']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
   Route::get('user/{id}',[usercontroller::class,'show']);
     Route::group(['middleware' => 'Admin'] , function(){

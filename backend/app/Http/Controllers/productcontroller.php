@@ -14,7 +14,9 @@ class productcontroller extends Controller
     {
         return response(['products' => Product::with('pcategorie', 'pet')->get()]);
     }
-
+    public function random(){
+        return response(['products' => Product::with('pcategorie', 'pet')->inRandomOrder()->Limit(6)->get()]);
+    }
     /**
      * Show the form for creating a new resource.
      */

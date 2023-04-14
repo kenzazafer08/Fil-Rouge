@@ -15,39 +15,19 @@
      <div class="w-full"> 
          <p class="text-center text-2xl m-10">New products</p>
          <div class="flex flex-col sm:flex-row justify-between items-center m-2"> 
-              <div class="flex flex-col justify-around items-center"> 
-                 <img src="../assets/image.png"/>
-                 <p>Home Divine Martin Sellier</p>
-                 <p>799,00د.م.Price</p>
-              </div>
-              <div class="flex flex-col justify-around items-center"> 
-                 <img src="../assets/image(1).png"/>
-                 <p>Dog treat dispenser - Martin Sellier</p>
-                 <p>299,00د.م.Price</p>
-              </div>
-              <div class="flex flex-col justify-around items-center"> 
-                 <img src="../assets/image(2).png"/>
-                 <p>Martin Sellier Black Cricket Basket</p>
-                 <p>349,00د.م.Price</p>
+              <div v-for="(item,index) in firstProducts" :key="index" class="flex flex-col justify-around items-center"> 
+                 <img :src="image(item.image)"/>
+                 <p>{{item.name}}</p>
+                 <p>{{item.price}}د.م.Price</p>
               </div>
               <img class="sm:block hidden" src="../assets/Rectangle.png"/>
          </div>
          <div class="flex flex-col sm:flex-row justify-between items-center m-2"> 
           <img class="sm:block hidden" src="../assets/Rectangle8.png"/>
-              <div class="flex flex-col justify-around items-center"> 
-                 <img src="../assets/image7.png"/>
-                 <p>Aboistop Electro - Barking control collar</p>
-                 <p>1.199,00د.م.Price</p>
-              </div>
-              <div class="flex flex-col justify-around items-center"> 
-                 <img src="../assets/image7(1).png"/>
-                 <p>Ownat Grain Free Prime Adult Chicken & Turkey 12kg</p>
-                 <p>580,00د.م.Price</p>
-              </div>
-              <div class="flex flex-col justify-around items-center"> 
-                 <img src="../assets/image7(2).png"/>
-                 <p>Trixie folding metal cage S / M-L</p>
-                 <p>990,00د.م.Price</p>
+          <div v-for="(item,index) in secondProducts" :key="index" class="flex flex-col justify-around items-center"> 
+                 <img :src="image(item.image)"/>
+                 <p>{{item.name}}</p>
+                 <p>{{item.price}}د.م.Price</p>
               </div>
          </div>
      </div>
@@ -113,12 +93,22 @@ export default {
   data() {
     return {
       categories : [],
-      pets : []
+      pets : [],
+      products : [],
     }
   },
   mounted(){
     this.getCategories()
     this.getPets()
+    this.getProducts()
+  },
+  computed: {
+    firstProducts() {
+      return this.products.filter((item, index) => index < 3);
+    },
+    secondProducts() {
+      return this.products.filter((item, index) => index >= 3);
+    },
   },
   methods : {
     getCategories(){
@@ -141,6 +131,18 @@ export default {
         .then((response) => {
           // set the authenticated state to true
           this.pets = response.data.pets;
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          // handle error response
+        });
+    },
+    getProducts(){
+      axios
+        .get("http://127.0.0.1:8000/api/random")
+        .then((response) => {
+          // set the authenticated state to true
+          this.products = response.data.products;
         })
         .catch((error) => {
           console.log(error.response.data);
