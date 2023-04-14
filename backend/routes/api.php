@@ -27,6 +27,8 @@ Route::get('/pets',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::get('/random',[productcontroller::class,'random']);
+Route::get('/stock',[productcontroller::class,'stock']);
+
 Route::group(['middleware' => 'auth:sanctum'], function(){
   Route::get('user/{id}',[usercontroller::class,'show']);
     Route::group(['middleware' => 'Admin'] , function(){
@@ -49,6 +51,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/update/{id}',[productcontroller::class,'update']);
         Route::delete('/delete/{id}',[productcontroller::class,'destroy']);
         Route::get('/{id}',[productcontroller::class,'show']);
+        Route::put('addstock/{id}/',[productcontroller::class,'addstock']);
       });
       Route::group(['prefix' => 'author'] , function(){
         Route::get('/',[usercontroller::class,'author']);

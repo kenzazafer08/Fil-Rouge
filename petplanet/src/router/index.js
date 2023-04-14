@@ -13,6 +13,7 @@ import PetComponent from '@/components/Admin/PetComponent.vue'
 import EditPet from '@/components/Admin/EditPet.vue'
 import ProductComponentVue from '@/components/Admin/ProductComponent.vue'
 import Addcomponent from '../components/Admin/AddProduct'
+import EditProduct from '@/components/Admin/EditProduct.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -29,6 +30,8 @@ const routes = [
   { path: '/Users' ,component: Users},
   { path: '/Products' ,component: ProductComponentVue},
   { path: '/Addproduct' ,component: Addcomponent},
+  { path: '/Editproduct/:id' ,component: EditProduct ,name:'EditProduct',props: true},
+
 ];
 
 const router = createRouter({

@@ -17,6 +17,9 @@ class productcontroller extends Controller
     public function random(){
         return response(['products' => Product::with('pcategorie', 'pet')->inRandomOrder()->Limit(6)->get()]);
     }
+    public function stock(){
+        return response(['products' => Product::with('pcategorie', 'pet')->orderBy('stock', 'asc')->get()]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -80,10 +83,19 @@ class productcontroller extends Controller
     public function update(Request $request, string $id)
     {
         $cat = product::find($id);
-
+        if ($request->image == null) {
+            $img = $cat->image;
+        }else{
+        try {
+            $request->image->move(public_path('uploads'),$request->image->getClientOriginalName());
+            $img =  $request->image->getClientOriginalName();
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+        } 
         $cat->name = $request->name;
         $cat->discription = $request->discription;
-        $cat->image = $request->image;
+        $cat->image = $img;
         $cat->price = $request->price;
         $cat->stock = $request->stock;
         $cat->id_categorie = $request->id_categorie;
@@ -97,7 +109,19 @@ class productcontroller extends Controller
 
         return response()->json($cat,201);
     }
+    public function addstock(Request $request, string $id)
+    {
+        $cat = product::find($id);
+        $cat->stock = $cat->stock + $request->stock;
 
+        $cat->save();
+        
+        $cat = [
+          'massage' => 'Product updated succesfuly'
+        ];
+
+        return response()->json($cat,201);
+    }
     /**
      * Remove the specified resource from storage.
      */

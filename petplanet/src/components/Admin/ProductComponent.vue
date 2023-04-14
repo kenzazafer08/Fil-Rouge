@@ -58,7 +58,7 @@
                 {{ product.pet.name }}
               </td>
               <td class="px-6 py-4">
-                <router-link :to="{name : 'Editcategorie' , params:{id : product.id }}"
+                <router-link :to="{name : 'EditProduct' , params:{id : product.id }}"
                   class="pl-2 font-medium text-green-600 hover:underline"
                 >
                   Edit
@@ -71,11 +71,9 @@
                 >
               </td>
               <td class="px-6 py-4">
-                <a
-                  href="#"
+                <button @click.prevent="change(product.id)"
                   class="pl-2 font-medium text-green-600 hover:underline"
-                  >Replenish</a
-                >
+                  >Replenish</button>
               </td>
             </tr>
           </tbody>
@@ -86,6 +84,7 @@
 </template>
 
 <script>
+const token = localStorage.getItem("token");
 import axios from 'axios'
 import SideBar from '../inc/SideBar.vue'
 import Swal from 'sweetalert2'
@@ -115,7 +114,7 @@ export default {
     getAll(){
         console.log('test')
       axios
-        .get("http://127.0.0.1:8000/api/products")
+        .get("http://127.0.0.1:8000/api/stock")
         .then((response) => {
           // set the authenticated state to true
           this.products = response.data.products;
@@ -171,6 +170,48 @@ export default {
           console.log(error.response.data);
         });
       },
+      change(id){
+        Swal.fire({
+            title : `Replinish`,
+            input: 'number',
+            inputLabel: 'Add to stock',
+            inputValue: 10,
+            icon: "info",
+            confirmButtonColor: "#5D9C59",
+            confirmButtonText: 'Done',
+            showCancelButton: true,
+        }).then(result => {
+          if (result.value) {
+          console.log(result.value);
+          this.formData.set("stock", result.value);
+          this.formData.append('_method', 'PUT');
+          axios.post("http://127.0.0.1:8000/api/products/addstock/"+id,this.formData,{
+          headers: {
+          "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}` // include the token in the headers of the API request
+                    }
+                }).then((response) => {
+                    console.log(response.data)
+                })
+                .catch((error) => {
+                console.log(error.response.data);
+                });
+            console.log(result)
+            this.getAll();
+            Swal.fire({
+            title: "Done",
+            text: "Stock replenished succesfuly",
+            icon: "succes",
+            confirmButtonColor: "#5D9C59",
+            confirmButtonText: "Done",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              console.log("test");
+              this.getAll()
+            }
+          })
+    }})
+      }
   }
 }
 </script>
