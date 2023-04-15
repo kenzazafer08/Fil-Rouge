@@ -4,7 +4,7 @@
        <div class="bg-white drop-shadow-xl drop-shadow-black h-16 w-full flex justify-between items-center"> 
           <p class="sm:ml-20 text-sm ml-4">Over 100,000 results for "shopping"</p>
           <select class="text-sm text-black px-4 py-1 rounded-full sm:mr-20 bg-gray-50 border border-gray-300 focus:ring-green-500 focus:border-green-500">
-            <option selected>Sort by : Featured</option>
+            <option selected>Featured</option>
             <option>Price Low to Hight</option>
             <option>Price Hight to Low</option>
             <option>Avg Customers reviews</option>
