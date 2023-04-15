@@ -134,4 +134,9 @@ class productcontroller extends Controller
           ];
         return response()->json($cat,201);
     }
+
+    public function pet(Request $request){
+        $id = $request->all();
+       return response(["products" => product::whereIn('id_pet',$id)->with('pcategorie','pet')->get()]);
+    }
 }

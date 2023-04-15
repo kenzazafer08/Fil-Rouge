@@ -19,8 +19,14 @@
                   <legend class="sr-only">Checkbox variants</legend>
 
                   <div v-for="item in pets" :key="item.id" class="flex items-center mb-4">
-                      <input id="checkbox-1" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" >
-                      <label for="checkbox-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ item.name }}</label>
+                    <input
+                      :id="'checkbox-' + item.id"
+                      type="checkbox"
+                      class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      v-model="checkedPets"
+                      :value="item.id"
+                    >
+                    <label :for="'checkbox-' + item.id" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ item.name }}</label>
                   </div>
 
                 </fieldset>
@@ -83,6 +89,7 @@
         categories : [],
         pets : [],
         products : [],
+        checkedPets : []
       }
     },
     mounted(){
@@ -90,6 +97,12 @@
     this.getPets()
     this.getProducts()
    },
+   watch: {
+    checkedPets: {
+      handler: 'onCheckedItemsChange',
+      deep: true,
+    }
+  },
    methods : {
     getCategories(){
       console.log('test')
@@ -131,8 +144,29 @@
     },
     image(name){
       return 'http://127.0.0.1:8000/api/images/'+name;
-   }
-  }
+   },
+   onCheckedItemsChange() {
+      console.log('Checked Items:', this.checkedPets);
+      // Call your function here
+      if(this.checkedPets.length === 0){
+        this.getProducts()
+      }else{
+        axios
+        .post("http://127.0.0.1:8000/api/petfilter/", this.checkedPets)
+        .then((response) => {
+          // set the authenticated state to true
+          this.products = response.data.products;
+
+          console.log(this.products)
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          // handle error response
+        });
+      }
+      
+    },
+  },
   }
   </script>
   
