@@ -70,7 +70,6 @@
         products : [],
         checkedPets : [],
         checkedCat : [],
-        checkedPrice : [],
       }
     },
     mounted(){
@@ -83,7 +82,7 @@
       handler: 'onCheckedItemsChange',
       deep: true,
     },checkedCat: {
-      handler: 'onCheckedCatChange',
+      handler: 'onCheckedItemsChange',
       deep: true,
     }
   },
@@ -132,11 +131,12 @@
    onCheckedItemsChange() {
       console.log('Checked Items:', this.checkedPets);
       // Call your function here
-      if(this.checkedPets.length === 0){
+      if(this.checkedPets.length === 0 && this.checkedCat.length === 0){
         this.getProducts()
       }else{
         axios
-        .post("http://127.0.0.1:8000/api/petfilter/", this.checkedPets)
+        .post("http://127.0.0.1:8000/api/filter/", {pet : this.checkedPets,
+        cat : this.checkedCat})
         .then((response) => {
           // set the authenticated state to true
           this.products = response.data.products;

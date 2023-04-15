@@ -135,9 +135,16 @@ class productcontroller extends Controller
         return response()->json($cat,201);
     }
 
-    public function pet(Request $request){
-        $id = $request->all();
-       return response(["products" => product::whereIn('id_pet',$id)->with('pcategorie','pet')->get()]);
+    public function filter(Request $request){
+        $pet = $request->pet;
+        $cat = $request->cat;
+        if($cat == null){
+            return response(["products" => product::whereIn('id_pet',$pet)->with('pcategorie','pet')->get()]);
+        }else if($pet == null){
+            return response(["products" => product::whereIn('id_categorie',$cat)->with('pcategorie','pet')->get()]);
+        }else{
+            return response(["products" => product::whereIn('id_pet',$pet)->whereIn('id_categorie',$cat)->with('pcategorie','pet')->get()]);
+        }
     }
     public function cat(Request $request){
         $id = $request->all();
