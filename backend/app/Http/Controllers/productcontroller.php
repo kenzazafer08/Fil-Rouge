@@ -14,6 +14,16 @@ class productcontroller extends Controller
     {
         return response(['products' => Product::with('pcategorie', 'pet')->get()]);
     }
+
+    public function price(String $id)
+    {
+        if($id == 1){
+            return response(['products' => Product::with('pcategorie', 'pet')->orderBy('price','asc')->get()]);
+        }else if($id == 2){
+            return response(['products' => Product::with('pcategorie', 'pet')->orderBy('price','desc')->get()]);
+        }
+    }
+
     public function random(){
         return response(['products' => Product::with('pcategorie', 'pet')->inRandomOrder()->Limit(6)->get()]);
     }

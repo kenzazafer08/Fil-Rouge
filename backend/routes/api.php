@@ -25,6 +25,7 @@ Route::post("register",[UserController::class,'register']);
 Route::get('/categories',[Pcategoriecontroller::class,'index']);
 Route::get('/pets',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
+Route::get('/price/{id}',[productcontroller::class,'price']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::get('/random',[productcontroller::class,'random']);
 Route::get('/stock',[productcontroller::class,'stock']);

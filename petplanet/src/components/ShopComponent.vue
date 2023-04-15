@@ -3,10 +3,10 @@
        <header-component></header-component>
        <div class="bg-white drop-shadow-xl drop-shadow-black h-16 w-full flex justify-between items-center"> 
           <p class="sm:ml-20 text-sm ml-4">Over 100,000 results for "shopping"</p>
-          <select class="text-sm text-black px-4 py-1 rounded-full sm:mr-20 bg-gray-50 border border-gray-300 focus:ring-green-500 focus:border-green-500">
-            <option selected>Featured</option>
-            <option>Price Low to Hight</option>
-            <option>Price Hight to Low</option>
+          <select @change.prevent="product()" v-model="price" class="text-sm text-black px-4 py-1 rounded-full sm:mr-20 bg-gray-50 border border-gray-300 focus:ring-green-500 focus:border-green-500">
+            <option value="0" selected>Featured</option>
+            <option value="1">Price Low to Hight</option>
+            <option value="2">Price Hight to Low</option>
           </select>
        </div>
         <div class="flex w-full justify-between"> 
@@ -70,6 +70,7 @@
         products : [],
         checkedPets : [],
         checkedCat : [],
+        price : 0,
       }
     },
     mounted(){
@@ -112,10 +113,25 @@
           console.log(error.response.data);
           // handle error response
         });
+    },product(){
+      if(this.price == 0){
+        this.getProducts()
+      }else{
+        axios
+        .get("http://127.0.0.1:8000/api/price/"+this.price)
+        .then((response) => {
+          // set the authenticated state to true
+          this.products = response.data.products;
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          // handle error response
+        });
+      }
     },
     getProducts(){
       axios
-        .get("http://127.0.0.1:8000/api/random")
+        .get("http://127.0.0.1:8000/api/products/")
         .then((response) => {
           // set the authenticated state to true
           this.products = response.data.products;
