@@ -139,4 +139,8 @@ class productcontroller extends Controller
         $id = $request->all();
        return response(["products" => product::whereIn('id_pet',$id)->with('pcategorie','pet')->get()]);
     }
+    public function cat(Request $request){
+        $id = $request->all();
+       return response(["products" => product::whereIn('id_categorie',$id)->with('pcategorie','pet')->get()]);
+    }
 }
