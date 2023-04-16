@@ -74,7 +74,9 @@ class productcontroller extends Controller
      */
     public function show(string $id)
     {
+        
         $product = product::find($id);
+        $reviews = $product->review();
         $cat = [
            'name' => $product->name,
            'discription' => $product->discription,
@@ -82,7 +84,8 @@ class productcontroller extends Controller
            'stock' => $product->stock,
            'image' => $product->image,
            'categorie' => $product->pcategorie->name,
-           'pet' => $product->pet->name
+           'pet' => $product->pet->name,
+           'reviews' => $reviews->get()
         ];
         return response()->json($cat,201);
     }

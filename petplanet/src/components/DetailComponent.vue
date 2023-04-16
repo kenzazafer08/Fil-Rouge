@@ -1,6 +1,12 @@
 <template>
     <div>
    <header-component></header-component>
+   <ul class="bg-red-800 border">
+      <li v-for="review in reviews" :key="review.id">
+        <p>{{ review.comment }}</p>
+        <p>Rating: {{ review.value }}</p>
+      </li>
+    </ul>
    <div class="flex justify-around items-center w-full mt-10 px-20"> 
        <div class="h-full w-1/2"> 
         <img class="w-full shadox-xl my-10 border" :src="image(product.image)"/>
@@ -102,6 +108,7 @@
         </button>
     </div>
 </form>
+
    </div>
    <footer-component></footer-component>
    </div>
@@ -118,14 +125,7 @@ export default {
   props : ['id'],
   data(){
     return{
-        product : {
-           name : '',
-           discription : '',
-           price : '',
-           pet : '',
-           categorie : '',
-           image : ''
-        }
+        product : {}
     }
   },
   mounted(){
@@ -137,12 +137,8 @@ export default {
         .get("http://127.0.0.1:8000/api/products/"+this.id)
         .then((response) => {
           // set the authenticated state to true
-          this.product.name = response.data.name
-          this.product.discription = response.data.discription
-          this.product.price = response.data.price
-          this.product.pet = response.data.pet
-          this.product.categorie = response.data.categorie
-          this.product.image = response.data.image
+          this.product = response.data
+          console.log(this.product.reviews)
           console.log(this.product)
         })
         .catch((error) => {

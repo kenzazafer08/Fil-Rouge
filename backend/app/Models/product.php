@@ -19,4 +19,8 @@ class product extends Model
     {
         return $this->belongsTo(pet::class,'id_pet');
     }
+    public function review()
+    {
+        return $this->hasMany(review::class);
+    }
 }

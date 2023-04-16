@@ -8,6 +8,7 @@ use App\Http\Controllers\postcatcontroller;
 use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\petcontroller;
 use App\Http\Controllers\postcontroller;
+use App\Http\Controllers\reviewcontroller;
 use Spatie\Backtrace\File;
 
 /*
@@ -75,6 +76,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::delete('/delete/{id}',[postcontroller::class,'destroy']);
         Route::get('/{id}',[postcontroller::class,'show']);
       });
+    });
+    Route::group(['prefix' => 'review'] , function(){
+      Route::post('/store/{id}',[reviewcontroller::class,'store']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });
