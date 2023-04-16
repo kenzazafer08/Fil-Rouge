@@ -47,7 +47,7 @@
              <div class="h-min-screen text-center w-[75%] sm:mr-10 mr-0 grid sm:grid-cols-3 grid-cols-1 gap-8 p-0">
               <div v-for="item in products" :key="item.id" class="m-10 flex flex-col items-center"> 
                  <img :src="image(item.image)"/>
-                 <p>{{ item.name }}<br/>{{ item.price}}د.م.Price</p>
+                 <router-link :to="{name : 'Detailproduct' , params:{id : item.id }}">{{ item.name }}<br/>{{ item.price}}د.م.Price</router-link>
               </div>
              </div>
         </div>

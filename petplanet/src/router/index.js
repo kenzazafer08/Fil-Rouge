@@ -14,6 +14,7 @@ import EditPet from '@/components/Admin/EditPet.vue'
 import ProductComponentVue from '@/components/Admin/ProductComponent.vue'
 import Addcomponent from '../components/Admin/AddProduct'
 import EditProduct from '@/components/Admin/EditProduct.vue'
+import DetailComponentVue from '@/components/DetailComponent.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -31,7 +32,7 @@ const routes = [
   { path: '/Products' ,component: ProductComponentVue},
   { path: '/Addproduct' ,component: Addcomponent},
   { path: '/Editproduct/:id' ,component: EditProduct ,name:'EditProduct',props: true},
-
+  { path: '/Detailproduct/:id' ,component: DetailComponentVue ,name:'Detailproduct',props: true},
 ];
 
 const router = createRouter({

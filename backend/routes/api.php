@@ -25,6 +25,7 @@ Route::post("register",[UserController::class,'register']);
 Route::get('/categories',[Pcategoriecontroller::class,'index']);
 Route::get('/pets',[petcontroller::class,'index']);
 Route::get('/products',[productcontroller::class,'index']);
+Route::get('products/{id}',[productcontroller::class,'show']);
 Route::get('/price/{id}',[productcontroller::class,'price']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::get('/random',[productcontroller::class,'random']);
@@ -52,7 +53,6 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::post('/store',[productcontroller::class,'store']);
         Route::put('/update/{id}',[productcontroller::class,'update']);
         Route::delete('/delete/{id}',[productcontroller::class,'destroy']);
-        Route::get('/{id}',[productcontroller::class,'show']);
         Route::put('addstock/{id}/',[productcontroller::class,'addstock']);
       });
       Route::group(['prefix' => 'author'] , function(){
