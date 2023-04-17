@@ -4,7 +4,7 @@
        <div class="bg-white drop-shadow-xl drop-shadow-black h-16 w-full flex justify-between items-center"> 
           <p class="sm:ml-20 text-sm ml-4">Over 100,000 results for "shopping"</p>
           <select @change.prevent="product()" v-model="price" class="text-sm text-black px-4 py-1 rounded-full sm:mr-20 bg-gray-50 border border-gray-300 focus:ring-green-500 focus:border-green-500">
-            <option value="0" selected>Featured</option>
+            <option value="0" selected>Sort By : Featured</option>
             <option value="1">Price Low to Hight</option>
             <option value="2">Price Hight to Low</option>
           </select>
