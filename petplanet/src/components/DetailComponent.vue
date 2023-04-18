@@ -88,6 +88,7 @@ export default {
       this.formData.append("id_user", id_user);
       this.formData.append("value", this.value);
       console.log(this.formData);
+      if(token){
         axios
           .post("http://127.0.0.1:8000/api/review/store/" + this.id, this.formData, {
             headers: {
@@ -117,6 +118,19 @@ export default {
             console.log(error.response.data);
             // handle error response
           });
+      }else {
+        Swal.fire({
+              title: "Warning",
+              text: "LogIn first",
+              icon: "warning",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result)=>{
+              console.log(result)
+              this.comment = ''
+              this.value = 0
+            })
+      }
       },
     values(i){
        this.value = i
