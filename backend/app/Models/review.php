@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class review extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['value','comment','id_user','product_id'];  
+    protected $fillable = ['value','comment','user_id','product_id'];  
     public function user()
     {
         return $this->belongsTo(User::class);

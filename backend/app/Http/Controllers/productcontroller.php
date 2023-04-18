@@ -73,22 +73,26 @@ class productcontroller extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        
-        $product = product::find($id);
-        $reviews = $product->review();
-        $cat = [
-           'name' => $product->name,
-           'discription' => $product->discription,
-           'price' => $product->price,
-           'stock' => $product->stock,
-           'image' => $product->image,
-           'categorie' => $product->pcategorie->name,
-           'pet' => $product->pet->name,
-           'reviews' => $reviews->get()
-        ];
-        return response()->json($cat,201);
-    }
+{
+    $product = Product::with('review.user')->find($id);
+    $cat = [
+        'name' => $product->name,
+        'description' => $product->description,
+        'price' => $product->price,
+        'stock' => $product->stock,
+        'image' => $product->image,
+        'category' => $product->pcategorie->name,
+        'pet' => $product->pet->name,
+        'reviews' => $product->review->map(function($review) {
+            return [
+                'id' => $review->id,
+                'comment' => $review->comment,
+                'value' => $review->value,
+                'user' => $review->user ? $review->user->name : null,            ];
+        })
+    ];
+    return response()->json($cat, 200);
+}
 
     /**
      * Update the specified resource in storage.
