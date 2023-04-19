@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     });
     Route::group(['prefix' => 'cart'] , function(){
       Route::get('/',[cartcontroller::class,'index']);
+      Route::get('/count',[cartcontroller::class,'count']);
       Route::post('/store/{id}',[cartcontroller::class,'store']);
       Route::delete('/{id}',[cartcontroller::class,'remove']);
     });

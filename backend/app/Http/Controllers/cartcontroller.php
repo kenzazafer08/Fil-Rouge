@@ -31,4 +31,16 @@ class cartcontroller extends Controller
             return response('Cart item not found', 404);
         }
     }
+    public function count(){
+        $products = cart::where('user_id',Auth::id())->get();
+        $total = 0;
+        foreach($products as $product){
+            $total = $total + $product->product->price;
+        }
+        $cart = [
+          'count' => $products->count(),
+          'total' => $total
+        ];
+        return response($cart,201);
+    }
 }

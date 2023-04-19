@@ -15,6 +15,7 @@ import ProductComponentVue from '@/components/Admin/ProductComponent.vue'
 import Addcomponent from '../components/Admin/AddProduct'
 import EditProduct from '@/components/Admin/EditProduct.vue'
 import DetailComponentVue from '@/components/DetailComponent.vue'
+import CartComponentVue from '@/components/CartComponent.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/categorie' ,component: Categorie},
   { path: '/Editcategorie/:id' ,component: EditCatVue ,name:'Editcategorie',props: true},
   { path: '/pet' ,component: PetComponent},
+  { path: '/Cart' ,component: CartComponentVue},
   { path: '/Editpet/:id' ,component: EditPet ,name:'EditPet',props: true},
   { path: '/Users' ,component: Users},
   { path: '/Products' ,component: ProductComponentVue},
