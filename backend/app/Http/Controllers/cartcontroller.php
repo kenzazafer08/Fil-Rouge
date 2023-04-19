@@ -35,7 +35,7 @@ class cartcontroller extends Controller
         $products = cart::where('user_id',Auth::id())->get();
         $total = 0;
         foreach($products as $product){
-            $total = $total + $product->product->price;
+            $total = $total + $product->prix_q;
         }
         $cart = [
           'count' => $products->count(),
