@@ -14,7 +14,10 @@
             <div class="">
                 <div class="flex justify-between items-center border-b">
                     <h1 class="font-bold text-2xl p-2">Items : {{ count }} </h1>  
-                    <p class="text-green-700">Total {{ total }} DH</p>
+                    <div class="flex items-center justify-between"> 
+                        <p class="text-green-700">Total {{ total }} DH</p>
+                        <button class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mx-4">ChekOut</button>
+                    </div>
                 </div>
                 <div v-for="cart in cart" :key="cart.product_id" class="flex items-center bg-white border border-gray-200 rounded-lg shadow flex-row x-full hover:bg-gray-100 my-8 justify-between">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg " :src='image(cart.product.image)' alt="">

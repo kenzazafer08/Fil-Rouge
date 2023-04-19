@@ -11,8 +11,8 @@
         <h5 class="text-2xl font-light">{{ product.price }} د.م.</h5>
         <div class="flex justify-start items-center">
             <label class="font-bold mr-4 w-24">Quantity</label>
-            <input type="number" min="1" class="border shadow w-12 my-4 focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none" value="1"/>
-            <button type="button" class="text-green-700 bg-white border-solid border-2 border-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm w-24 h-8 pl-2 text-center inline-flex items-center ml-4">
+            <input v-model="quantity" type="number" min="1" class="border shadow w-12 my-4 focus:outline-none focus:shadow-outline focus:ring-green-300 focus:border-none"/>
+            <button @click="add()" type="button" class="text-green-700 bg-white border-solid border-2 border-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm w-24 h-8 pl-2 text-center inline-flex items-center ml-4">
                 Add to cart
             </button>
         </div>
@@ -78,13 +78,62 @@ export default {
         value : "",
         formData : new FormData(),
         token : localStorage.getItem("token"),
-        user : localStorage.getItem('id')
+        user : localStorage.getItem('id'),
+        quantity : 1
     }
   },
   mounted(){
     this.getproduct()
   },
   methods : {
+    add(){
+      console.log(this.product);
+      let prix_q = this.product.price * this.quantity
+      this.formData.append("quantity", this.quantity);
+      this.formData.append("prix_q", prix_q);
+      console.log(this.formData);
+      if(token){
+        axios
+          .post("http://127.0.0.1:8000/api/cart/store/" + this.id, this.formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // include the token in the headers of the API request
+            },
+            timeout: 5000, // add a timeout of 5 seconds
+          })
+          .then((response) => {
+            response.data;
+            Swal.fire({
+              title: "Thank You",
+              text: "Product added succesfuly",
+              icon: "success",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.quantity = '',
+                this.$router.push('/Cart')
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+            // handle error response
+          });
+      }else {
+        Swal.fire({
+              title: "Warning",
+              text: "LogIn first",
+              icon: "warning",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result)=>{
+              console.log(result)
+              this.comment = ''
+              this.value = 0
+            })
+      }
+    },
     review() {
       console.log(this.product);
       this.formData.append("comment", this.comment);

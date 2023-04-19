@@ -47,7 +47,11 @@
              <div class="h-min-screen text-center w-[75%] sm:mr-10 mr-0 grid sm:grid-cols-3 grid-cols-1 gap-8 p-0">
               <div v-for="item in products" :key="item.id" class="m-10 flex flex-col items-center"> 
                  <img :src="image(item.image)"/>
-                 <router-link :to="{name : 'Detailproduct' , params:{id : item.id }}">{{ item.name }}<br/>{{ item.price}}د.م.Price</router-link>
+                 <router-link :to="{name : 'Detailproduct' , params:{id : item.id }}">{{ item.name }}<br/>{{ item.price}}د.م.Price
+                 </router-link>
+                 <div class="flex justify-between items-center">
+                    <button @click="add(item.id,item.price)"><img src="../assets/plus-alt-svgrepo-com.svg" class="w-8 h-8"/></button>   
+                  </div>
               </div>
              </div>
         </div>
@@ -57,9 +61,11 @@
   </template>
   
   <script>
+  const token = localStorage.getItem("token");
   import axios from 'axios';
   import HeaderComponent from './inc/HeaderComponent.vue';
   import FooterComponent from './inc/FooterComponent.vue';
+  import Swal from 'sweetalert2';
   export default {
     name: 'ShopComponent',
     components :{HeaderComponent,FooterComponent},
@@ -71,6 +77,7 @@
         checkedPets : [],
         checkedCat : [],
         price : 0,
+        formData : new FormData()
       }
     },
     mounted(){
@@ -88,6 +95,52 @@
     }
   },
    methods : {
+    add(id,prix){
+      console.log(this.product);
+      this.formData.append("quantity", 1);
+      this.formData.append("prix_q", prix);
+      console.log(this.formData);
+      if(token){
+        axios
+          .post("http://127.0.0.1:8000/api/cart/store/" + id, this.formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // include the token in the headers of the API request
+            },
+            timeout: 5000, // add a timeout of 5 seconds
+          })
+          .then((response) => {
+            response.data;
+            Swal.fire({
+              title: "Thank You",
+              text: "Product added succesfuly",
+              icon: "success",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$router.push('/Cart')
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+            // handle error response
+          });
+      }else {
+        Swal.fire({
+              title: "Warning",
+              text: "LogIn first",
+              icon: "warning",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result)=>{
+              console.log(result)
+              this.comment = ''
+              this.value = 0
+            })
+      }
+    },
     getCategories(){
       console.log('test')
       axios
