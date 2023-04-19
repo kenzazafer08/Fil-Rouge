@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class cartcontroller extends Controller
 {
-    public function index(){
-        return response(['cart' => cart::where('user_id',Auth::id())->with('product')->get()]);        
+    public function index()
+    {
+        $cart = cart::where('user_id', Auth::id())->with('product')->get();
+        return response(['cart' => $cart]);
     }
     public function store(Request $request, String $id)
     {
@@ -42,5 +44,19 @@ class cartcontroller extends Controller
           'total' => $total
         ];
         return response($cart,201);
+    }
+    public function quantity(Request $request, $id)
+    {
+        $id_product = $id;
+        $id_user = Auth::id();
+        $cart = cart::where('product_id', $id_product)
+                    ->where('user_id', $id_user)
+                    ->first();
+        if ($cart) {
+            $cart->quantity = $request->quantity;
+            $cart->prix_q = $request->prix_q;
+            $cart->save();
+        }
+        return $cart;
     }
 }

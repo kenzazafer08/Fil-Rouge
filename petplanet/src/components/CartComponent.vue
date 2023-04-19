@@ -19,7 +19,7 @@
                         <button class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mx-4">ChekOut</button>
                     </div>
                 </div>
-                <div v-for="cart in cart" :key="cart.product_id" class="flex items-center bg-white border border-gray-200 rounded-lg shadow flex-row x-full hover:bg-gray-100 my-8 justify-between">
+                <div v-for="cart,index in cart" :key="index" class="flex items-center bg-white border border-gray-200 rounded-lg shadow flex-row x-full hover:bg-gray-100 my-8 justify-between">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg " :src='image(cart.product.image)' alt="">
                     <div class="flex flex-col justify-between p-4 leading-normal">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ cart.product.name }}</h5>
@@ -29,11 +29,11 @@
                         <p class="font-bold">{{ cart.product.price }} DH</p>
                         <p class="font-normal text-green-700">{{ cart.quantity + " Items " + cart.prix_q }} DH</p>
                         <div class="flex flex-row justify-around items-center my-4"> 
-                            <button><img src="../assets/trash-svgrepo-com.svg" class="w-8 h-8"/></button>
+                            <button @click="remove(cart.id_product)"><img src="../assets/trash-svgrepo-com.svg" class="w-8 h-8"/></button>
                             <div class="flex items-center"> 
-                            <button><img src="../assets/minus-svgrepo-com.svg" class="w-6 h-8"/></button>
+                            <button @click="minus(index)"><img src="../assets/minus-svgrepo-com.svg" class="w-6 h-8"/></button>
                             {{ cart.quantity }}
-                            <button><img src="../assets/plus-alt-svgrepo-com.svg" class="w-8 h-8"/></button>  
+                            <button @click="plus(index)"><img src="../assets/plus-alt-svgrepo-com.svg" class="w-8 h-8"/></button>  
                         </div>
                         </div>
                     </div>
@@ -58,6 +58,7 @@ export default {
         cart : [],
         count : '',
         total : '',
+        formData : new FormData()
     }
   },
   mounted() {
@@ -107,6 +108,54 @@ export default {
         image(name){
         return 'http://127.0.0.1:8000/api/images/'+name;
       },
+      minus(index){
+        const token = localStorage.getItem('token'); // get the token from the local storage
+        let i ;
+        for(i=0;i<this.cart.length;i++){
+          if(index === i){
+            if(this.cart[i].quantity > 1){
+            this.cart[i].quantity--;
+            this.cart[i].prix_q = this.cart[i].product.price * this.cart[i].quantity
+            this.formData.append("quantity", this.cart[i].quantity);
+            this.formData.append("prix_q", this.cart[i].prix_q);
+            console.log(this.cart[i].quantity,this.cart[i].prix_q)
+            this.cart[i].product_id;
+            axios.post('http://127.0.0.1:8000/api/cart/quantity/'+this.cart[i].product_id, this.formData ,{
+            headers: {
+              Authorization: `Bearer ${token}` // include the token in the headers of the API request
+            }
+            }).then(result => {
+            console.log(result.data);
+            }).catch((error) => {
+            console.log(error.response.data);
+            });
+            }
+          }
+        }
+      },
+      plus(index){
+        const token = localStorage.getItem('token'); // get the token from the local storage
+        let i ;
+        for(i=0;i<this.cart.length;i++){
+          if(index === i){
+            this.cart[i].quantity++;
+            this.cart[i].prix_q = this.cart[i].product.price * this.cart[i].quantity
+            this.formData.append("quantity", this.cart[i].quantity);
+            this.formData.append("prix_q", this.cart[i].prix_q);
+            console.log(this.cart[i].quantity,this.cart[i].prix_q)
+            this.cart[i].product_id;
+            axios.post('http://127.0.0.1:8000/api/cart/quantity/'+this.cart[i].product_id, this.formData ,{
+            headers: {
+              Authorization: `Bearer ${token}` // include the token in the headers of the API request
+            }
+          }).then(result => {
+            console.log(result.data);
+          }).catch((error) => {
+            console.log(error.response.data);
+          });
+          }
+        }
+      }
     }
 }
 

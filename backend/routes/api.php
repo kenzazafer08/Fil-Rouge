@@ -86,6 +86,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       Route::get('/count',[cartcontroller::class,'count']);
       Route::post('/store/{id}',[cartcontroller::class,'store']);
       Route::delete('/{id}',[cartcontroller::class,'remove']);
+      Route::post('/quantity/{id}',[cartcontroller::class,'quantity']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });

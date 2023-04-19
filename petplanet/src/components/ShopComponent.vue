@@ -49,9 +49,6 @@
                  <img :src="image(item.image)"/>
                  <router-link :to="{name : 'Detailproduct' , params:{id : item.id }}">{{ item.name }}<br/>{{ item.price}}د.م.Price
                  </router-link>
-                 <div class="flex justify-between items-center">
-                    <button @click="add(item.id,item.price)"><img src="../assets/plus-alt-svgrepo-com.svg" class="w-8 h-8"/></button>   
-                  </div>
               </div>
              </div>
         </div>
@@ -125,7 +122,6 @@
           })
           .catch((error) => {
             console.log(error.response.data);
-            // handle error response
           });
       }else {
         Swal.fire({
