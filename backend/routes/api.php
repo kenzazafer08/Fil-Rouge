@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     });
     Route::group(['prefix' => 'review'] , function(){
       Route::post('/store/{id}',[reviewcontroller::class,'store']);
+      Route::delete('/{id}',[reviewcontroller::class,'remove']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });

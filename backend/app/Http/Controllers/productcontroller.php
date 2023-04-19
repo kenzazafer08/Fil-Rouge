@@ -88,7 +88,9 @@ class productcontroller extends Controller
                 'id' => $review->id,
                 'comment' => $review->comment,
                 'value' => $review->value,
-                'user' => $review->user ? $review->user->name : null,            ];
+                'user' => $review->user ? $review->user->name : null, 
+                'id_user' => $review->user_id
+            ];
         })
     ];
     return response()->json($cat, 200);

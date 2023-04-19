@@ -21,6 +21,11 @@ class reviewcontroller extends Controller
         return response($review);
     }
     public function remove(string $id){
-      //
+      $review = review::find($id);
+      $review->delete();
+      $cat = [
+        'message' => 'review deleted succesfuly'
+      ];
+      return response()->json($cat,201);
     }
 }

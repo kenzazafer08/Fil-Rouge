@@ -49,6 +49,7 @@
         </svg>
       </span>
     </div>
+    <button @click="remove(review.id)" :class="review.id_user == user  ? 'text-red-800 font-normal m-2 rounded-full px-2 border border-red-700' : 'hidden'">Remove</button>
   </li>
 </ul>
    </div>
@@ -62,6 +63,8 @@ import FooterComponent from './inc/FooterComponent.vue'
 import HeaderComponent from './inc/HeaderComponent.vue'
 import Swal from 'sweetalert2'
 
+const token = localStorage.getItem("token");
+const id_user = localStorage.getItem('id');
 export default {
   components: { HeaderComponent, FooterComponent },
   name : 'DetailProduct',
@@ -73,7 +76,9 @@ export default {
         stars: [1, 2, 3, 4, 5],
         comment : "",
         value : "",
-        formData : new FormData()
+        formData : new FormData(),
+        token : localStorage.getItem("token"),
+        user : localStorage.getItem('id')
     }
   },
   mounted(){
@@ -81,8 +86,6 @@ export default {
   },
   methods : {
     review() {
-      const token = localStorage.getItem("token");
-      const id_user = localStorage.getItem('id');
       console.log(this.product);
       this.formData.append("comment", this.comment);
       this.formData.append("id_user", id_user);
@@ -136,6 +139,47 @@ export default {
        this.value = i
        console.log(this.value);
     },
+    remove(id){
+      Swal.fire({
+        title: "Ok",
+        text: "You are sure you wanna remove this review",
+        icon: "warning",
+        confirmButtonColor: "#5D9C59",
+        confirmButtonText: "Yes I'm sure",
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteReview(id);
+        }
+      });
+    },
+    deleteReview(id) {
+      axios
+        .delete("http://127.0.0.1:8000/api/review/" + id, {
+          headers: {
+            Authorization: `Bearer ${token}`, // include the token in the headers of the API request
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          Swal.fire({
+            title: "Done",
+            text: "Categorie Deleted succesfuly",
+            icon: "success",
+            confirmButtonColor: "#5D9C59",
+            confirmButtonText: "Done",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.getproduct();
+              console.log("test");
+            }
+          });
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+  },
     getproduct(){
         axios
         .get("http://127.0.0.1:8000/api/products/"+this.id)
