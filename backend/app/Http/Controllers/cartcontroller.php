@@ -22,11 +22,13 @@ class cartcontroller extends Controller
         return response($cart);
     }
     public function remove(string $id){
-      $cart = cart::find($id);
-      $cart->delete();
-      $cat = [
-        'message' => 'Product removed succesfuly'
-      ];
-      return response()->json($cat,201);
+        $id_product = $id;
+        $id_user = Auth::id();
+        $deleted = cart::where('product_id', $id_product)->where('user_id', $id_user)->delete();
+        if ($deleted > 0) {
+            return response('Cart item deleted successfully');
+        } else {
+            return response('Cart item not found', 404);
+        }
     }
 }
