@@ -9,7 +9,7 @@ use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\petcontroller;
 use App\Http\Controllers\postcontroller;
 use App\Http\Controllers\reviewcontroller;
-use Spatie\Backtrace\File;
+use App\Http\Controllers\cartcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +80,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['prefix' => 'review'] , function(){
       Route::post('/store/{id}',[reviewcontroller::class,'store']);
       Route::delete('/{id}',[reviewcontroller::class,'remove']);
+    });
+    Route::group(['prefix' => 'cart'] , function(){
+      Route::get('/',[cartcontroller::class,'index']);
+      Route::post('/store/{id}',[cartcontroller::class,'store']);
+      Route::delete('/{id}',[cartcontroller::class,'remove']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });
