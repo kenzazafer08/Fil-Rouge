@@ -16,6 +16,7 @@ import Addcomponent from '../components/Admin/AddProduct'
 import EditProduct from '@/components/Admin/EditProduct.vue'
 import DetailComponentVue from '@/components/DetailComponent.vue'
 import CartComponentVue from '@/components/CartComponent.vue'
+import CheckOutVue from '@/components/CheckOut.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -35,6 +36,7 @@ const routes = [
   { path: '/Addproduct' ,component: Addcomponent},
   { path: '/Editproduct/:id' ,component: EditProduct ,name:'EditProduct',props: true},
   { path: '/Detailproduct/:id' ,component: DetailComponentVue ,name:'Detailproduct',props: true},
+  { path: '/ChekOut' ,component: CheckOutVue},
 ];
 
 const router = createRouter({
