@@ -27,4 +27,8 @@ class product extends Model
     {
         return $this->hasMany(cart::class);
     }
+    public function order()
+    {
+        return $this->hasMany(order_line::class);
+    }
 }

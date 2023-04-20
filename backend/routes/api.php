@@ -10,6 +10,7 @@ use App\Http\Controllers\petcontroller;
 use App\Http\Controllers\postcontroller;
 use App\Http\Controllers\reviewcontroller;
 use App\Http\Controllers\cartcontroller;
+use App\Http\Controllers\ordercontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       Route::post('/store/{id}',[cartcontroller::class,'store']);
       Route::delete('/{id}',[cartcontroller::class,'remove']);
       Route::post('/quantity/{id}',[cartcontroller::class,'quantity']);
+    });
+    Route::group(['prefix' => 'order'] , function(){
+      Route::get('/',[ordercontroller::class,'index']);
+      Route::post('/store/',[ordercontroller::class,'store']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });
