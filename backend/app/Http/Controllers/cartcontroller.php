@@ -17,11 +17,23 @@ class cartcontroller extends Controller
     {
         $id_product = $id;
         $id_user = Auth::id();
-        $cart = cart::updateOrCreate(
-            ['product_id' => $id_product, 'user_id' => $id_user],
-            ['quantity' => $request->quantity, 'prix_q' => $request->prix_q]
-        );
-        return response($cart);
+        $cart = cart::where('product_id', $id_product)
+                    ->where('user_id', $id_user)
+                    ->first();
+        if ($cart) {
+            $quantity = $cart->quantity + $request->quantity;
+            $cart->quantity =  $quantity;
+            $cart->prix_q = $request->prix_q *  $quantity;
+            $cart->save();
+        }else{
+            $cart = cart::create([
+                'product_id' => $id,
+                'user_id' => $id_user,
+                'quantity' => $request->quantity,
+                'prix_q' => $request->prix_q
+            ]);
+        }
+        return response($cart,201);
     }
     public function remove(string $id){
         $id_product = $id;
@@ -47,11 +59,7 @@ class cartcontroller extends Controller
     }
     public function quantity(Request $request, $id)
     {
-        $id_product = $id;
-        $id_user = Auth::id();
-        $cart = cart::where('product_id', $id_product)
-                    ->where('user_id', $id_user)
-                    ->first();
+        $cart = cart::find($id);
         if ($cart) {
             $cart->quantity = $request->quantity;
             $cart->prix_q = $request->prix_q;
