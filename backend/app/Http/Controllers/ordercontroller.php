@@ -19,7 +19,8 @@ class ordercontroller extends Controller
         $order->total = $request->total;
         $order->save();
 
-   foreach ($request->order_lines as $order_line) {
+        $order_lines = json_decode($request->order_lines, true);
+   foreach ($order_lines as $order_line) {
     $order->order_line()->create([
         'order_id' => $order->id, // associate the order_id with the order_line record
         'product_id' => $order_line['product_id'],        

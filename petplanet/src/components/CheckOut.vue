@@ -73,8 +73,16 @@ export default {
         .catch(error => {
           console.log(error.data);
         });
-
-        
+        this.formData.append('total',this.count.discount),
+        this.formData.append('order_lines',JSON.stringify(this.cart)),
+        axios.post('http://127.0.0.1:8000/api/order/store/',this.formData,{
+            headers: {
+            Authorization: `Bearer ${token}` // include the token in the headers of the API request
+          }
+        }).then(response => {
+            console.log(response.data)
+            this.$router.push('/shop')
+        }).catch(error => console.log(error.data))
     },
     getCart(){
         const token = localStorage.getItem('token'); // get the token from the local storage
