@@ -93,6 +93,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       Route::get('/',[ordercontroller::class,'index']);
       Route::post('/store/',[ordercontroller::class,'store']);
       Route::get('/user/',[ordercontroller::class,'user']);
+      Route::delete('/delete/{id}',[ordercontroller::class,'destroy']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });

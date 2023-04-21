@@ -6,8 +6,8 @@
 </head>
 <body>
     <h1>Order Details</h1>
-    <p>User ID: {{ $order->user_id }}</p>
-    <p>Total: {{ $order->total }}</p>
+    <p>User: {{ $order->user->name }}</p>
+    <p>Total: {{ $order->total }} DH</p>
     <p>Address: {{ $order->user->adress }}</p>
     <p>Phone: {{ $order->user->phone }}</p>
     <table>

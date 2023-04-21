@@ -36,6 +36,17 @@ class ordercontroller extends Controller
     return response(['order' => $order]);
     }
 
+    public function destroy($id)
+    {
+        $order = Order::find($id);
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+        $order->order_line()->delete();
+        $order->delete();
+        return response()->json(['message' => 'Order deleted successfully']);
+    }
+
     public function facture($id){
         $order = Order::findOrFail($id);
         $pdf = PDF::loadView('order', compact('order'));
