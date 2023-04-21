@@ -46,7 +46,8 @@
     </div>
 </template>
 
-<script>
+<script>        
+const token = localStorage.getItem('token'); // get the token from the local storage
 import axios from 'axios'
 import FooterComponent from './inc/FooterComponent.vue'
 import HeaderComponent from './inc/HeaderComponent.vue'
@@ -67,7 +68,6 @@ export default {
   },
   methods : {
     counts(){
-        const token = localStorage.getItem('token'); // get the token from the local storage
         axios.get('http://127.0.0.1:8000/api/cart/count/', {
           headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
@@ -85,7 +85,6 @@ export default {
     },
     getCart(){
         console.log('test')
-        const token = localStorage.getItem('token'); // get the token from the local storage
         axios.get('http://127.0.0.1:8000/api/cart/', {
           headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
@@ -109,7 +108,6 @@ export default {
         return 'http://127.0.0.1:8000/api/images/'+name;
       },
       remove(cart){
-        const token = localStorage.getItem('token'); // get the token from the local storage
         axios.delete('http://127.0.0.1:8000/api/cart/'+cart ,{headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
           }
@@ -122,7 +120,6 @@ export default {
         .catch(error => console.log(error.data))
       },
       quantity(index,j){
-        const token = localStorage.getItem('token'); // get the token from the local storage
         let i ;
         for(i=0;i<this.cart.length;i++){
           if(index === this.cart[i].id){

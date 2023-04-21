@@ -38,6 +38,7 @@
 </template>
 
 <script>
+const token = localStorage.getItem('token'); // get the token from the local storage
 import axios from 'axios'
 import FooterComponent from './inc/FooterComponent.vue'
 import HeaderComponent from './inc/HeaderComponent.vue'
@@ -94,7 +95,6 @@ export default {
         }).catch(error => console.log(error.data))
     },
     getCart(){
-        const token = localStorage.getItem('token'); // get the token from the local storage
         axios.get('http://127.0.0.1:8000/api/cart/', {
           headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
@@ -109,7 +109,6 @@ export default {
     }, 
     getCount(){
         console.log(this.authenticated)
-        const token = localStorage.getItem('token'); // get the token from the local storage
         axios.get('http://127.0.0.1:8000/api/cart/count/', {
           headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
@@ -136,7 +135,6 @@ export default {
         });
     },
     getUser(){
-        const token = localStorage.getItem('token'); // get the token from the local storage
         axios.get('http://127.0.0.1:8000/api/user/', {
           headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request

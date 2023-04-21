@@ -64,7 +64,6 @@ import HeaderComponent from './inc/HeaderComponent.vue'
 import Swal from 'sweetalert2'
 
 const token = localStorage.getItem("token");
-const id_user = localStorage.getItem('id');
 export default {
   components: { HeaderComponent, FooterComponent },
   name : 'DetailProduct',
@@ -138,7 +137,6 @@ export default {
     review() {
       console.log(this.product);
       this.formData.append("comment", this.comment);
-      this.formData.append("id_user", id_user);
       this.formData.append("value", this.value);
       console.log(this.formData);
       if(token){
