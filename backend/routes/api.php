@@ -92,6 +92,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['prefix' => 'order'] , function(){
       Route::get('/',[ordercontroller::class,'index']);
       Route::post('/store/',[ordercontroller::class,'store']);
+      Route::get('/user/',[ordercontroller::class,'user']);
     });
     Route::post("logout",[UserController::class,'logout']);
 });
