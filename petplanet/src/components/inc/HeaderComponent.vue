@@ -126,9 +126,8 @@ export default {
     checkAuthentication() {
       const token = localStorage.getItem('token'); // get the token from the local storage
       const role = localStorage.getItem('role');
-      const id = localStorage.getItem('id')
       if (token) {
-        axios.get('http://127.0.0.1:8000/api/user/'+ id, {
+        axios.get('http://127.0.0.1:8000/api/user/', {
           headers: {
             Authorization: `Bearer ${token}` // include the token in the headers of the API request
           }

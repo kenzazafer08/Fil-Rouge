@@ -35,7 +35,8 @@ Route::get('/stock',[productcontroller::class,'stock']);
 Route::post('/filter',[productcontroller::class,'filter']);
 Route::post('/catfilter',[productcontroller::class,'cat']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
-  Route::get('user/{id}',[usercontroller::class,'show']);
+  Route::get('user/',[usercontroller::class,'show']);
+  Route::post('user/update',[usercontroller::class,'update']);
     Route::group(['middleware' => 'Admin'] , function(){
       Route::get('/statistics',[usercontroller::class,'statistics']);
       Route::get('users',[usercontroller::class,'users']);

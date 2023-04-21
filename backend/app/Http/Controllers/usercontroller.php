@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pcategorie;
+use Illuminate\Support\Facades\Auth;
 use App\Models\product;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -85,8 +86,24 @@ class usercontroller extends Controller
            'pets' => $pets
         ]); 
     }
-    public function show(String $id){
+    public function show(){
+        $id = Auth::id();
         $user = user::find($id);
         return response($user);
+    }
+
+    public function update(Request $request){
+        $id = Auth::id();
+        $order = User::find($id);
+    
+        if (!$order) {
+            return response(['message' => 'User not found'], 404);
+        }
+    
+        $order->phone = $request->phone;
+        $order->adress = $request->adress;
+        $order->save();
+    
+        return response(['user' => $order]);
     }
 }
