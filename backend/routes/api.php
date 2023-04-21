@@ -11,7 +11,6 @@ use App\Http\Controllers\postcontroller;
 use App\Http\Controllers\reviewcontroller;
 use App\Http\Controllers\cartcontroller;
 use App\Http\Controllers\ordercontroller;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -110,4 +109,8 @@ Route::get('/images/{filename}', function ($filename) {
 
   return $response;
 });
+
+Route::get('order/{id}',[ordercontroller::class,'facture']);
+
+
 

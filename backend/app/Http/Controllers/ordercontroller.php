@@ -6,6 +6,7 @@ use App\Models\order;
 use App\Models\cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use PDF;
 
 class ordercontroller extends Controller
 {
@@ -30,5 +31,11 @@ class ordercontroller extends Controller
     }
     cart::where('user_id', Auth::id())->delete();
     return response(['order' => $order]);
+    }
+
+    public function facture($id){
+        $order = Order::findOrFail($id);
+        $pdf = PDF::loadView('order', compact('order'));
+        return $pdf->download('facture.pdf');
     }
 }

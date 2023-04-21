@@ -81,7 +81,16 @@ export default {
           }
         }).then(response => {
             console.log(response.data)
-            this.$router.push('/shop')
+            this.$router.push('/cart')
+            const order = response.data.order;
+            axios.get('http://127.0.0.1:8000/api/order/' + order.id, { responseType: 'blob' }).then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'facture.pdf');
+                document.body.appendChild(link);
+                link.click();
+            });
         }).catch(error => console.log(error.data))
     },
     getCart(){
@@ -113,9 +122,9 @@ export default {
           this.count.total = response.data.total;
           console.log(response.data.count);
           if(response.data.total > 200){
-            this.count.livraison = 20
-          }else{
             this.count.livraison = 0
+          }else{
+            this.count.livraison = 20
           }
           this.count.total = this.count.total + this.count.livraison;
           if(this.count.total > 300){
