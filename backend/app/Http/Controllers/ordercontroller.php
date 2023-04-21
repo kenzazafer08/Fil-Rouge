@@ -13,6 +13,15 @@ class ordercontroller extends Controller
     public function index(){
     return response(['orders' => order::with('user', 'order_line.product.pcategorie', 'order_line.product.pet')->get()]);    
     }
+    public function show($id)
+        {
+            $query = Order::with('user', 'order_line.product.pcategorie', 'order_line.product.pet');
+            if ($id) {
+                $query->where('id', $id);
+            }
+            $order = $query->first();
+            return response(['order' => $order]);
+        }
     public function user(){
         $id = Auth::id();
         return response(['orders' => order::with('user', 'order_line.product.pcategorie', 'order_line.product.pet')->where('user_id',$id)->get()]);    

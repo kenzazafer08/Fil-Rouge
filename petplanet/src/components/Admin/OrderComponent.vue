@@ -10,6 +10,7 @@
               <th scope="col" class="px-6 py-3">Total</th>
               <th scope="col" class="px-6 py-3">Status</th>
               <th scope="col" class="px-6 py-3">Download</th>
+              <th scope="col" class="px-6 py-3">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -57,6 +58,13 @@
               </td>
               <td class="px-6 py-4">
                 <button @click="download(order.id)" class="py-2 px-4 bg-gray-400 text-white">Download</button>
+              </td>
+              <td class="px-6 py-4">
+                <router-link :to="{name : 'OrderDetails' , params:{id : order.id }}"
+                  class="pl-2 font-medium text-green-600 hover:underline"
+                >
+                  Show
+                </router-link>
               </td>
             </tr>
           </tbody>

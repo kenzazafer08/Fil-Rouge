@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       });
 
       Route::group(['prefix' => 'order'] , function(){
+        Route::get('/{id}',[ordercontroller::class,'show']);
         Route::get('/count',[ordercontroller::class,'count']);
         Route::post('/{id}/status/',[ordercontroller::class,'status']);
       });

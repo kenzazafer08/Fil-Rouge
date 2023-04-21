@@ -19,6 +19,7 @@ import CartComponentVue from '@/components/CartComponent.vue'
 import CheckOutVue from '@/components/CheckOut.vue'
 import ProfileComponentVue from '@/components/ProfileComponent.vue'
 import OrderComponentVue from '@/components/Admin/OrderComponent.vue'
+import OrderDetailsVue from '@/components/Admin/OrderDetails.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -41,6 +42,7 @@ const routes = [
   { path: '/ChekOut' ,component: CheckOutVue},
   { path: '/Profile' ,component: ProfileComponentVue},
   { path: '/Orders' ,component: OrderComponentVue},
+  { path: '/OrderDetails' ,component: OrderDetailsVue,name:'OrderDetails',props: true},
 ];
 
 const router = createRouter({
