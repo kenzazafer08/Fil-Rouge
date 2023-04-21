@@ -82,7 +82,7 @@ export default {
           }
         }).then(response => {
             console.log(response.data)
-            this.$router.push('/cart')
+            this.$router.push('/Profile')
             const order = response.data.order;
             axios.get('http://127.0.0.1:8000/api/order/' + order.id, { responseType: 'blob' }).then(response => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -128,6 +128,8 @@ export default {
           this.count.total = this.count.total + this.count.livraison;
           if(this.count.total > 300){
             this.count.discount = this.count.total - this.count.total* 0.01
+          }else {
+            this.count.discount = this.count.total
           }
         })
         .catch(error => {

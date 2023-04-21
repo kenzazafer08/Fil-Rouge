@@ -88,7 +88,7 @@ export default {
     add(){
       console.log(this.quantity)
       console.log(this.product);
-      let prix_q = this.product.price
+      let prix_q = this.product.price * this.quantity
       this.formData.append("quantity", this.quantity);
       this.formData.append("prix_q", prix_q);
       console.log(this.formData);
