@@ -51,6 +51,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::delete('/delete/{id}',[petcontroller::class,'destroy']);
         Route::get('/{id}',[petcontroller::class,'show']);
       });
+
+      Route::group(['prefix' => 'order'] , function(){
+        Route::get('/count',[ordercontroller::class,'count']);
+        Route::post('/{id}/status/',[ordercontroller::class,'status']);
+      });
+
       Route::group(['prefix' => 'products'] , function(){
         Route::post('/store',[productcontroller::class,'store']);
         Route::put('/update/{id}',[productcontroller::class,'update']);

@@ -52,4 +52,14 @@ class ordercontroller extends Controller
         $pdf = PDF::loadView('order', compact('order'));
         return $pdf->download('facture.pdf');
     }
+    public function count(){
+        return response(order::where('Status',NULL)->count());
+    }
+
+    public function status(Request $request,$id){
+        $order = order::find($id);
+        $order->Status = $request->status;
+        $order->save();
+        return $order;
+    }
 }

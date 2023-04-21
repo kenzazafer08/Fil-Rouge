@@ -60,11 +60,11 @@
             </router-link>
          </li>
          <li>
-            <a href="#" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 ">
+            <router-link to="/Orders" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 ">
                <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-black" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path><path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path></svg>
                <span class="flex-1 ml-3 whitespace-nowrap">Orders</span>
-               <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-green-800 bg-green-100 rounded-full ">3</span>
-            </a>
+               <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-green-800 bg-green-100 rounded-full ">{{ norder }}</span>
+            </router-link>
          </li>
          <li>
             <router-link to="/Users" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 ">
@@ -105,14 +105,30 @@ export default {
     data() {
         return{
             authenticated: false, // initially set the authenticated state to false
-            user: {}
+            user: {},
+            norder : ''
         }
     },
 created() {
     // check if the user is authenticated on component creation
     this.checkAuthentication();
+    this.count();
   },
   methods: {
+    count(){
+      const token = localStorage.getItem('token');
+    axios.get('http://127.0.0.1:8000/api/order/count', {
+      headers: {
+        Authorization: `Bearer ${token}` // include the token in the headers of the API request
+      }
+    }).then(response => {
+      this.norder = response.data;// set the authenticated state to true
+    })
+    .catch(error => {
+      console.log(error.response.data);
+      // handle error response
+    });
+    },
     checkAuthentication() {
       const token = localStorage.getItem('token'); // get the token from the local storage
       const role = localStorage.getItem('role');
