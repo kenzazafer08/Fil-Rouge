@@ -1,12 +1,12 @@
 <template>
   <div>
     <header-component></header-component>
-    <div class="py-10 w-full bg-gray-100 min-h-[500px] flex justify-around items-start">
-        <div class="w-[70%] bg-white rounded-lg shawod-lg h-[400px]">
+    <div class="py-10 w-full bg-gray-100 min-h-[500px] flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:items-start items-start">
+        <div class="sm:w-[70%] w-[98%] bg-white rounded-lg shawod-lg h-[400px]">
           <p class="font-medium border-b w-full p-2 px-4">1. Adress</p>
           <p class="text-2xl font-light px-4 py-2">{{ user.name }}</p>
           <div class="flex justify-around items-center"> 
-            <div class="w-[45%]">
+            <div class="sm:w-[45%] ">
                 <label for="adress" class="block mb-2 text-sm font-medium text-gray-900 ">Your adress</label>
                 <input v-model="user.adress" type="text" id="adress" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 " placeholder="70 RUE ELOUMAM QUE HOPITAL SAFI" required>
             </div>
@@ -24,7 +24,7 @@
            <p class="font-ligth text-sm px-4 py-2">Paiement cash à la livraison</p>
            <p class="font-ligth text-sm px-4 pb-4">Payez en espèces dès que vous recevez votre commande.</p>
         </div>
-        <div class="w-[20%] bg-white rounded-lg shawod-lg h-[300PX] px-2 py-4">
+        <div class="sm:w-[20%] sm:mt-0 mt-4 w-[98%] bg-white rounded-lg shawod-lg h-[300PX] px-2 py-4">
             <p class="text-sm font-medium border-b">Order Summary</p>
             <div class="flex justify-between p-2"><p>Total articls ({{ count.number }})</p><p>{{ count.total1 }} DH</p></div>
             <div class="flex justify-between p-2"><p>Frais de livraison</p><p>{{ count.livraison }} DH</p></div>
