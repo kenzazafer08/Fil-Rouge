@@ -5,13 +5,13 @@
       <div class="sm:w-[30%] sm:mt-0 mt-4 w-[98%] bg-white rounded-lg shawod-lg h-[300PX] px-2 py-4 text-center">
             <div class="font-bold text-green-800 text-2xl"><p>{{user.name}}</p></div>
             <div class=""><p>{{ user.email }}</p></div>
-            <div class="">
+            <div class="flex flex-col items-center justify-center w-full">
                 <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 ">Your phone</label>
-                <input v-model="user.phone" type="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 " placeholder="+212 6 34 04 70 64" required>
+                <input v-model="user.phone" type="phone" id="phone" class="w-[90%] shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 " placeholder="+212 6 34 04 70 64" required>
             </div>
-            <div class="">
+            <div class="flex flex-col items-center justify-center w-full">
                 <label for="adress" class="block mb-2 text-sm font-medium text-gray-900 ">Your adress</label>
-                <input v-model="user.adress" type="text" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 " placeholder="+212 6 34 04 70 64" required>
+                <input v-model="user.adress" type="text" id="phone" class="w-[90%] shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 " placeholder="+212 6 34 04 70 64" required>
             </div>   
             <div class="flex justify-center my-2"><button @click="Profile()" class="font-medium p-auto w-[90%] bg-green-700 rounded-sm shadow text-white py-4">Update Profile</button></div>     
           </div>

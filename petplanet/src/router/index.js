@@ -42,7 +42,7 @@ const routes = [
   { path: '/ChekOut' ,component: CheckOutVue},
   { path: '/Profile' ,component: ProfileComponentVue},
   { path: '/Orders' ,component: OrderComponentVue},
-  { path: '/OrderDetails' ,component: OrderDetailsVue,name:'OrderDetails',props: true},
+  { path: '/OrderDetails/:id' ,component: OrderDetailsVue,name:'OrderDetails',props: true},
 ];
 
 const router = createRouter({

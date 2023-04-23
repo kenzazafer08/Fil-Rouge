@@ -2,8 +2,6 @@
   <div> 
     <side-bar></side-bar>
     <div class="pl-4 pt-20 sm:ml-64">
-    <h1>{{ order.user.name }}</h1>
-    <h1>{{ order.total }} DH</h1>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -12,15 +10,15 @@
               <th scope="col" class="px-6 py-3">Name</th>
               <th scope="col" class="px-6 py-3">Discription</th>
               <th scope="col" class="px-6 py-3">Price</th>
-              <th scope="col" class="px-6 py-3">Stock</th>
-              <th scope="col" class="px-6 py-3">Ctegorie</th>
+              <th scope="col" class="px-6 py-3">Quantity</th>
+              <th scope="col" class="px-6 py-3">Categorie</th>
               <th scope="col" class="px-6 py-3">Pet</th>
             </tr>
           </thead>
           <tbody>
             <tr
               class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-              v-for="product in order.order_line.Products"
+              v-for="product in order.order_line"
               :key="product.id"
             >
               <th
@@ -28,33 +26,33 @@
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
                 <img
-                :src="image(product.image)"
+                :src="image(product.product.image)"
                   class="w-32 h-24 object-cover"
                 />
               </th>
               <td class="px-6 py-4">
-                {{ product.name }}
+                {{ product.product.name }}
               </td>
               <td class="px-6 py-4">
-                {{ product.discription }}
+                {{ product.product.discription }}
               </td>
               <td class="px-6 py-4">
-                {{ product.price }} DH
+                {{ product.prix_q }} DH
               </td>
               <td class="px-6 py-4">
-                {{ product.stock }}
+                {{ product.quantity }}
               </td>
               <td class="px-6 py-4">
-                {{ product.pcategorie.name }}
+                {{ product.product.pcategorie.name }}
               </td>
               <td class="px-6 py-4">
-                {{ product.pet.name }}
+                {{ product.product.pet.name }}
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      </div>
+      </div> 
   </div>
 </template>
 
@@ -72,20 +70,23 @@ export default {
     }
   },
   mounted(){
+    console.log('test')
+    console.log(this.id)
     this.getOrder(this.id)
   },
   methods: {
     getOrder(orderId) {
-        console.log('hi')
-    axios.get(`http://127.0.0.1:8000/api/order/${orderId}`, {
+    console.log('hi')
+    axios.get(`http://127.0.0.1:8000/api/order/${orderId}/show`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
     .then(response => {
         // handle success response
-        console.log(response.data.order);
+        console.log(response.data);
         this.order = response.data.order
+        console.log()
     })
     .catch(error => {
         // handle error response

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use App\Models\product;
 use App\Models\cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -15,35 +16,38 @@ class ordercontroller extends Controller
     }
     public function show($id)
         {
-            $query = Order::with('user', 'order_line.product.pcategorie', 'order_line.product.pet');
-            if ($id) {
-                $query->where('id', $id);
-            }
-            $order = $query->first();
-            return response(['order' => $order]);
+            return response(['order' => (Order::with('user', 'order_line.product.pcategorie', 'order_line.product.pet')->where('id',$id)->first())]);
         }
     public function user(){
         $id = Auth::id();
         return response(['orders' => order::with('user', 'order_line.product.pcategorie', 'order_line.product.pet')->where('user_id',$id)->get()]);    
         }    
-    public function store(Request $request){
-        $order = new Order;
-        $order->user_id = Auth::id();
-        $order->total = $request->total;
-        $order->save();
-
-        $order_lines = json_decode($request->order_lines, true);
-   foreach ($order_lines as $order_line) {
-    $order->order_line()->create([
-        'order_id' => $order->id, // associate the order_id with the order_line record
-        'product_id' => $order_line['product_id'],        
-        'quantity' => $order_line['quantity'],        
-        'prix_q' => $order_line['prix_q']
-    ]);
-    }
-    cart::where('user_id', Auth::id())->delete();
-    return response(['order' => $order]);
-    }
+        public function store(Request $request){
+            $order = new Order;
+            $order->user_id = Auth::id();
+            $order->total = $request->total;
+            $order->save();
+        
+            $order_lines = json_decode($request->order_lines, true);
+            foreach ($order_lines as $order_line) {
+                $order->order_line()->create([
+                    'order_id' => $order->id, // associate the order_id with the order_line record
+                    'product_id' => $order_line['product_id'],        
+                    'quantity' => $order_line['quantity'],        
+                    'prix_q' => $order_line['prix_q']
+                ]);
+            }
+        
+            // Update product stock
+            foreach ($order_lines as $order_line) {
+                $product = product::find($order_line['product_id']);
+                $product->stock -= $order_line['quantity'];
+                $product->save();
+            }
+        
+            cart::where('user_id', Auth::id())->delete();
+            return response(['order' => $order]);
+        }
 
     public function destroy($id)
     {
@@ -62,7 +66,7 @@ class ordercontroller extends Controller
         return $pdf->download('facture.pdf');
     }
     public function count(){
-        return response(order::where('Status',NULL)->count());
+        return response(order::where('Status','2')->firstOrFail());
     }
 
     public function status(Request $request,$id){
