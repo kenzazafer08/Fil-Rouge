@@ -10,7 +10,7 @@ class postcontroller extends Controller
 {
     public function index()
     {
-        return response(['posts' => post::with('postcat')->get()]);
+        return response(['posts' => post::with('postcat','comment')->get()]);
     }
 
     /**
@@ -53,13 +53,15 @@ class postcontroller extends Controller
      */
     public function show(string $id)
     {
-        $post = post::with('postcat')->where('id',$id)->first();
+        $post = post::with('postcat','comment.user')->where('id',$id)->first();
         $cat = [
            'Title' => $post->Title,
            'text' => $post->text,
            'image' => $post->image,
            'categorie' => $post->postcat->name,
+           'comments' => $post->comment
         ];
+    
         return response()->json($cat,201);
     }
 

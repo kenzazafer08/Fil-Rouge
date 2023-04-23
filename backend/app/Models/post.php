@@ -18,4 +18,8 @@ class post extends Model
     {
         return $this->belongsTo(postcat::class,'id_cat');
     }
+    public function comment()
+    {
+        return $this->hasMany(comment::class);
+    }
 }

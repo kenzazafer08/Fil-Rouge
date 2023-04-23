@@ -11,6 +11,7 @@ use App\Http\Controllers\postcontroller;
 use App\Http\Controllers\reviewcontroller;
 use App\Http\Controllers\cartcontroller;
 use App\Http\Controllers\ordercontroller;
+use App\Http\Controllers\commentcontroller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,10 +35,14 @@ Route::get('/randomposts',[postcontroller::class,'random']);
 Route::get('/stock',[productcontroller::class,'stock']);
 Route::post('/filter',[productcontroller::class,'filter']);
 Route::post('/catfilter',[productcontroller::class,'cat']);
-Route::get('post/{id}',[postcontroller::class,'show']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
+
+  Route::get('post/{id}',[postcontroller::class,'show']);
+  Route::post('comment/{id}',[commentcontroller::class,'store']);
+  Route::delete('comment/remove/{id}',[commentcontroller::class,'remove']);
+
 
   Route::get('user/',[usercontroller::class,'show']);
   Route::post('user/update',[usercontroller::class,'update']);

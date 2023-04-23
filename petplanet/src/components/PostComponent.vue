@@ -1,7 +1,7 @@
 <template>
     <div>
     <header-component></header-component>
-      <div class="mt-8 h-screen flex justify-center flex-col items-center w-full">
+      <div class="mt-8 min-h-screen flex justify-center flex-col items-center w-full">
           <h1 class="font-normal text-5xl ">{{ post.Title }}</h1>
           <img :src="image(post.image)" class="my-8 w-64 h-64 object-cover"/>
           <div class="w-[80%] pl-20">
@@ -20,6 +20,12 @@
                 <div class="flex pl-0 space-x-1 sm:pl-2">
                 </div>
             </div>
+            <div class="mb-10 flex  mt-10 " v-for="comment in post?.comments" :key="comment.id">
+                <p class="pl-10 w-[10%] font-bold text-green-700">{{comment.user.name}}</p>
+                <div class="w-[80%] pl-20 px-4 flex justify-start items-center border-green-500 "> 
+                <p class=" text-sm text-justify">{{comment.comment}}</p> 
+             </div>
+            </div>
         </div>
      </form>
       </div>
@@ -32,13 +38,15 @@
   import axios from 'axios'
 import HeaderComponent from './inc/HeaderComponent.vue'
 import FooterComponent from './inc/FooterComponent.vue'
+import Swal from 'sweetalert2'
   export default {
     components: { HeaderComponent , FooterComponent },
     props : ['id'],
     data(){
       return{
           post : {},
-          comment : ''
+          comment : '',
+          formData : new FormData()
       }
     },
     mounted(){
@@ -46,7 +54,50 @@ import FooterComponent from './inc/FooterComponent.vue'
     },
     methods : {
       comments(){
-        console.log("test")
+      console.log(this.product);
+      this.formData.append("comment", this.comment);
+      console.log(this.formData);
+      if(token){
+        axios
+          .post("http://127.0.0.1:8000/api/comment/" + this.id, this.formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // include the token in the headers of the API request
+            },
+            timeout: 5000, // add a timeout of 5 seconds
+          })
+          .then((response) => {
+            const test = response.data;
+            Swal.fire({
+              title: "Thank You",
+              text: "Comment added succesfuly",
+              icon: "success",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.comment = '',
+                this.getPost();
+                console.log(test);
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+            // handle error response
+          });
+      }else {
+        Swal.fire({
+              title: "Warning",
+              text: "LogIn first",
+              icon: "warning",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result)=>{
+              console.log(result)
+              this.comment = ''
+            })
+      }
       },
       getPost(){
           axios.get("http://127.0.0.1:8000/api/post/"+this.id,{
