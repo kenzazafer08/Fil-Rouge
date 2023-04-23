@@ -10,7 +10,7 @@ class postcontroller extends Controller
 {
     public function index()
     {
-        return response(['posts' => post::all()]);
+        return response(['posts' => post::with('postcat')->get()]);
     }
 
     /**
@@ -51,7 +51,7 @@ class postcontroller extends Controller
      */
     public function show(string $id)
     {
-        $post = post::find($id);
+        $post = post::with('postcat')->where('id',$id)->first();
         $cat = [
            'Title' => $post->Title,
            'text' => $post->text,
