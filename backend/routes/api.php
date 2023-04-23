@@ -30,9 +30,11 @@ Route::get('products/{id}',[productcontroller::class,'show']);
 Route::get('/price/{id}',[productcontroller::class,'price']);
 Route::get('/posts',[postcontroller::class,'index']);
 Route::get('/random',[productcontroller::class,'random']);
+Route::get('/randomposts',[postcontroller::class,'random']);
 Route::get('/stock',[productcontroller::class,'stock']);
 Route::post('/filter',[productcontroller::class,'filter']);
 Route::post('/catfilter',[productcontroller::class,'cat']);
+Route::get('post/{id}',[postcontroller::class,'show']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
@@ -86,7 +88,6 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::post('/store',[postcontroller::class,'store']);
         Route::put('/update/{id}',[postcontroller::class,'update']);
         Route::delete('/delete/{id}',[postcontroller::class,'destroy']);
-        Route::get('/{id}',[postcontroller::class,'show']);
       });
     });
 

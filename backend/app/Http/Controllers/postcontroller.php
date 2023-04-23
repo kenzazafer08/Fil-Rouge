@@ -45,7 +45,9 @@ class postcontroller extends Controller
         ];
         return response()->json($cat,201);
     }
-
+    public function random(){
+        return response(['posts' => post::with('postcat')->inRandomOrder()->Limit(2)->get()]);
+    }
     /**
      * Display the specified resource.
      */

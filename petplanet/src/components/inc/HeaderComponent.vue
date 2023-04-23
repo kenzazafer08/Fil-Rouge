@@ -139,7 +139,7 @@ export default {
           console.log(this.user)// set the user data
         })
         .catch(error => {
-          console.log(error.response.data);
+          console.log(error.data);
           // handle error response
         });
       }
