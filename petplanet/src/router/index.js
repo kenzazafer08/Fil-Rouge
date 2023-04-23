@@ -21,6 +21,8 @@ import ProfileComponentVue from '@/components/ProfileComponent.vue'
 import OrderComponentVue from '@/components/Admin/OrderComponent.vue'
 import OrderDetailsVue from '@/components/Admin/OrderDetails.vue'
 import BlogDashboardVue from '@/components/posts/BlogDashboard.vue'
+import CategorieComponentVue from '../components/posts/CategorieComponent.vue'
+import EditPostCatVue from '@/components/posts/EditCat.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -44,7 +46,10 @@ const routes = [
   { path: '/Profile' ,component: ProfileComponentVue},
   { path: '/Orders' ,component: OrderComponentVue},
   { path: '/OrderDetails/:id' ,component: OrderDetailsVue,name:'OrderDetails',props: true},
-  { path : '/blogdashboard' ,component : BlogDashboardVue}
+  { path : '/blogdashboard' ,component : BlogDashboardVue},
+  { path : '/blogcategories' ,component : CategorieComponentVue },
+  { path: '/Editcat/:id' ,component: EditPostCatVue ,name:'Editpostcategorie',props: true},
+
 ];
 
 const router = createRouter({

@@ -21,10 +21,19 @@ class postcatcontroller extends Controller
      */
     public function store(Request $request)
     {
+        $image = $request->image;
+        if (!$image) {
+            return response()->json(['error' => 'No image provided'], 400);
+        }
+        try {
+            $image->move(public_path('uploads'),$image->getClientOriginalName());
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to upload image'], 500);
+        }
         $categorie = postcat::create([
             'name' => $request->name,
             'discription' => $request->discription,
-            'image' => $request->image
+            'image' => $image->getClientOriginalName()
         ]);
         $cat = [
             'name' => $categorie->name,
@@ -49,10 +58,19 @@ class postcatcontroller extends Controller
     public function update(Request $request, string $id)
     {
         $cat = postcat::find($id);
-
+        if ($request->image == null) {
+            $img = $cat->image;
+        }else{
+        try {
+            $request->image->move(public_path('uploads'),$request->image->getClientOriginalName());
+            $img =  $request->image->getClientOriginalName();
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+            }      
         $cat->name = $request->name;
         $cat->discription = $request->discription;
-        $cat->image = $request->image;
+        $cat->image = $img;
 
         $cat->save();
         
@@ -69,7 +87,7 @@ class postcatcontroller extends Controller
     public function destroy(string $id)
     {
         $cat = postcat::findOrfail($id);
-        $cat->product()->delete();
+        // $cat->product()->delete();
         $cat->delete();
         $cat = [
             'massage' => 'Categorie deleted succesfuly'
