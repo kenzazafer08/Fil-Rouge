@@ -33,9 +33,13 @@ Route::get('/random',[productcontroller::class,'random']);
 Route::get('/stock',[productcontroller::class,'stock']);
 Route::post('/filter',[productcontroller::class,'filter']);
 Route::post('/catfilter',[productcontroller::class,'cat']);
+
+
 Route::group(['middleware' => 'auth:sanctum'], function(){
+
   Route::get('user/',[usercontroller::class,'show']);
   Route::post('user/update',[usercontroller::class,'update']);
+
     Route::group(['middleware' => 'Admin'] , function(){
       Route::get('/statistics',[usercontroller::class,'statistics']);
       Route::get('users',[usercontroller::class,'users']);
@@ -51,13 +55,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::delete('/delete/{id}',[petcontroller::class,'destroy']);
         Route::get('/{id}',[petcontroller::class,'show']);
       });
-
       Route::group(['prefix' => 'order'] , function(){
         Route::get('/{id}/show',[ordercontroller::class,'show']);
         Route::get('/count',[ordercontroller::class,'count']);
         Route::post('/{id}/status/',[ordercontroller::class,'status']);
       });
-
       Route::group(['prefix' => 'products'] , function(){
         Route::post('/store',[productcontroller::class,'store']);
         Route::put('/update/{id}',[productcontroller::class,'update']);
@@ -71,6 +73,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       });
     });
     Route::group(['middleware' => 'Author' ], function(){
+      Route::get('author/statistics',[postcontroller::class,'statistics']);
+
       Route::group(['prefix' => 'postcategorie'] , function(){
         Route::get('/',[postcatcontroller::class,'index']);
         Route::post('/store',[postcatcontroller::class,'store']);
@@ -85,10 +89,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('/{id}',[postcontroller::class,'show']);
       });
     });
+
     Route::group(['prefix' => 'review'] , function(){
       Route::post('/store/{id}',[reviewcontroller::class,'store']);
       Route::delete('/{id}',[reviewcontroller::class,'remove']);
     });
+
     Route::group(['prefix' => 'cart'] , function(){
       Route::get('/',[cartcontroller::class,'index']);
       Route::get('/count',[cartcontroller::class,'count']);
@@ -96,6 +102,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       Route::delete('/{id}',[cartcontroller::class,'remove']);
       Route::post('/quantity/{id}',[cartcontroller::class,'quantity']);
     });
+
     Route::group(['prefix' => 'order'] , function(){
       Route::get('/',[ordercontroller::class,'index']);
       Route::post('/store/',[ordercontroller::class,'store']);

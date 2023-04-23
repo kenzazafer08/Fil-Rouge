@@ -20,6 +20,7 @@ import CheckOutVue from '@/components/CheckOut.vue'
 import ProfileComponentVue from '@/components/ProfileComponent.vue'
 import OrderComponentVue from '@/components/Admin/OrderComponent.vue'
 import OrderDetailsVue from '@/components/Admin/OrderDetails.vue'
+import BlogDashboardVue from '@/components/posts/BlogDashboard.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -43,6 +44,7 @@ const routes = [
   { path: '/Profile' ,component: ProfileComponentVue},
   { path: '/Orders' ,component: OrderComponentVue},
   { path: '/OrderDetails/:id' ,component: OrderDetailsVue,name:'OrderDetails',props: true},
+  { path : '/blogdashboard' ,component : BlogDashboardVue}
 ];
 
 const router = createRouter({

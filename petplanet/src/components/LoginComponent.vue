@@ -58,6 +58,8 @@ import axios from 'axios';
         localStorage.setItem('id',response.data.user.id);
         if(response.data.role == 1){
           this.$router.push('/dashboard')
+        }else if(response.data.role == 2){
+          this.$router.push('/blogdashboard')
         }
         else this.$router.push('/')
         // handle successful response

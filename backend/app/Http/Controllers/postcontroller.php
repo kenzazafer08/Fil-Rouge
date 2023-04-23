@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\post;
+use App\Models\postcat;
 use Illuminate\Http\Request;
 
 class postcontroller extends Controller
@@ -83,5 +84,13 @@ class postcontroller extends Controller
             'massage' => 'post deleted succesfuly'
           ];
         return response()->json($cat,201);
+    }
+    public function statistics(){
+        $post = post::count();
+        $categorie = postcat::count();
+        return response([
+            'post' => $post,
+            'categories' => $categorie,
+         ]);
     }
 }
