@@ -82,7 +82,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::delete('/delete/{id}',[postcatcontroller::class,'destroy']);
         Route::get('/{id}',[postcatcontroller::class,'show']);
       });
-      Route::group(['prefix' => 'posts'] , function(){
+      Route::group(['prefix' => 'post'] , function(){
         Route::post('/store',[postcontroller::class,'store']);
         Route::put('/update/{id}',[postcontroller::class,'update']);
         Route::delete('/delete/{id}',[postcontroller::class,'destroy']);

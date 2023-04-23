@@ -23,7 +23,8 @@ import OrderDetailsVue from '@/components/Admin/OrderDetails.vue'
 import BlogDashboardVue from '@/components/posts/BlogDashboard.vue'
 import CategorieComponentVue from '../components/posts/CategorieComponent.vue'
 import EditPostCatVue from '@/components/posts/EditCat.vue'
-
+import PostComponentVue from '@/components/posts/PostComponent.vue'
+import AddPostVue from '@/components/posts/AddPost.vue'
 const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
@@ -49,7 +50,8 @@ const routes = [
   { path : '/blogdashboard' ,component : BlogDashboardVue},
   { path : '/blogcategories' ,component : CategorieComponentVue },
   { path: '/Editcat/:id' ,component: EditPostCatVue ,name:'Editpostcategorie',props: true},
-
+  { path: '/posts' , component: PostComponentVue},
+  { path: '/Addpost' , component: AddPostVue}
 ];
 
 const router = createRouter({

@@ -22,10 +22,19 @@ class postcontroller extends Controller
      */
     public function store(Request $request)
     {
+        $image = $request->image;
+        if (!$image) {
+            return response()->json(['error' => 'No image provided'], 400);
+        }
+        try {
+            $image->move(public_path('uploads'),$image->getClientOriginalName());
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to upload image'], 500);
+        }
         $categorie = post::create([
             'Title' => $request->Title,
             'text' => $request->text,
-            'image' => $request->image,
+            'image' => $image->getClientOriginalName(),
             'id_cat' => $request->id_cat,
         ]);
         $cat = [
@@ -58,10 +67,20 @@ class postcontroller extends Controller
     public function update(Request $request, string $id)
     {
         $cat = post::find($id);
-
+        $cat = postcat::find($id);
+        if ($request->image == null) {
+            $img = $cat->image;
+        }else{
+        try {
+            $request->image->move(public_path('uploads'),$request->image->getClientOriginalName());
+            $img =  $request->image->getClientOriginalName();
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+            } 
         $cat->Title = $request->Title;
         $cat->text = $request->text;
-        $cat->image = $request->image;
+        $cat->image = $request->$img;
         $cat->id_cat = $request->id_cat;
 
         $cat->save();
