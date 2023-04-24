@@ -7,7 +7,7 @@
         <div class="w-[80%] pl-20">
             <div v-html="post.text"></div>
         </div>
-        <div class="mt-4 w-full  rounded-sm flex justify-center items-center elx-colm-5 pl-8">
+        <div class="mt-4 w-full  rounded-sm flex flex-col justify-center items-center elx-colm-5 pl-8">
         <div class="bg-gray-100 w-[90%] py-4 rounded-full flex justify-between items-center " v-for="comment in post?.comments" :key="comment.id">
                 <p class="pl-10 w-[10%] font-bold text-green-700">{{comment.user.name}}</p>
                 <div class="w-[80%] pl-20 px-4 flex justify-start items-center border-green-500 "> 
