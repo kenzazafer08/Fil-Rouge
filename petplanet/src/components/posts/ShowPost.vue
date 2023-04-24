@@ -7,13 +7,13 @@
         <div class="w-[80%] pl-20">
             <div v-html="post.text"></div>
         </div>
-        <div class="w-full bg-gray-100 rounded-sm items-place-center m-5 pl-8">
-        <div class="mb-10 mt-10 w-full flex justify-around " v-for="comment in post?.comments" :key="comment.id">
+        <div class="mt-4 w-full  rounded-sm flex justify-center items-center elx-colm-5 pl-8">
+        <div class="bg-gray-100 w-[90%] py-4 rounded-full flex justify-between items-center " v-for="comment in post?.comments" :key="comment.id">
                 <p class="pl-10 w-[10%] font-bold text-green-700">{{comment.user.name}}</p>
                 <div class="w-[80%] pl-20 px-4 flex justify-start items-center border-green-500 "> 
                 <p class=" text-sm text-justify">{{comment.comment}}</p> 
-                <button @click="remove(comment.id)" class="text-red-500 w-[20%] flex-end">Archiver</button>
              </div>
+             <button @click="remove(comment.id)" class="text-red-500 w-[20%] flex-end">Archiver</button>
             </div>
         </div> 
     </div>

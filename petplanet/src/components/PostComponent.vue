@@ -20,12 +20,14 @@
                 <div class="flex pl-0 space-x-1 sm:pl-2">
                 </div>
             </div>
-            <div class="mb-10 flex  mt-10 " v-for="comment in post?.comments" :key="comment.id">
+            <div class="mt-4 w-full  rounded-sm flex justify-center items-center elx-colm-5 pl-8">
+            <div class=" w-full py-4 rounded-full flex justify-between items-center " v-for="comment in post?.comments" :key="comment.id">
                 <p class="pl-10 w-[10%] font-bold text-green-700">{{comment.user.name}}</p>
                 <div class="w-[80%] pl-20 px-4 flex justify-start items-center border-green-500 "> 
                 <p class=" text-sm text-justify">{{comment.comment}}</p> 
              </div>
             </div>
+        </div> 
         </div>
      </form>
       </div>

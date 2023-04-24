@@ -35,7 +35,7 @@ Route::get('/randomposts',[postcontroller::class,'random']);
 Route::get('/stock',[productcontroller::class,'stock']);
 Route::post('/filter',[productcontroller::class,'filter']);
 Route::post('/catfilter',[productcontroller::class,'cat']);
-
+Route::get('/postcount',[postcontroller::class,'count']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
 
@@ -83,7 +83,6 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
       Route::get('author/statistics',[postcontroller::class,'statistics']);
 
       Route::group(['prefix' => 'postcategorie'] , function(){
-        Route::get('/',[postcatcontroller::class,'index']);
         Route::post('/store',[postcatcontroller::class,'store']);
         Route::put('/update/{id}',[postcatcontroller::class,'update']);
         Route::delete('/delete/{id}',[postcatcontroller::class,'destroy']);

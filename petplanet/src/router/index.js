@@ -21,8 +21,6 @@ import ProfileComponentVue from '@/components/ProfileComponent.vue'
 import OrderComponentVue from '@/components/Admin/OrderComponent.vue'
 import OrderDetailsVue from '@/components/Admin/OrderDetails.vue'
 import BlogDashboardVue from '@/components/posts/BlogDashboard.vue'
-import CategorieComponentVue from '../components/posts/CategorieComponent.vue'
-import EditPostCatVue from '@/components/posts/EditCat.vue'
 import PostComponentVue from '@/components/posts/PostComponent.vue'
 import AddPostVue from '@/components/posts/AddPost.vue'
 import ShowPostVue from '@/components/posts/ShowPost.vue'
@@ -50,8 +48,6 @@ const routes = [
   { path: '/Orders' ,component: OrderComponentVue},
   { path: '/OrderDetails/:id' ,component: OrderDetailsVue,name:'OrderDetails',props: true},
   { path : '/blogdashboard' ,component : BlogDashboardVue},
-  { path : '/blogcategories' ,component : CategorieComponentVue },
-  { path: '/Editcat/:id' ,component: EditPostCatVue ,name:'Editpostcategorie',props: true},
   { path: '/posts' , component: PostComponentVue},
   { path: '/Addpost' , component: AddPostVue},
   { path: '/ShowPost/:id' , component: ShowPostVue , name:'ShowPost' , props:true},

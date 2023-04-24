@@ -16,7 +16,7 @@
               <tr>
                 <th scope="col" class="px-6 py-3">Image</th>
                 <th scope="col" class="px-6 py-3">Title</th>
-                <th scope="col" class="px-6 py-3">Categorie</th>
+                <th scope="col" class="px-6 py-3">Content</th>
                 <th scope="col" class="px-6 py-3">Action</th>
               </tr>
             </thead>
@@ -39,7 +39,7 @@
                   {{ cat.Title }}
                 </td>
                 <td class="px-6 py-4">
-                  {{ cat.postcat.name }}
+                  <p class="text-sm" v-html="firstTwoLines(cat.text)"></p>  
                 </td>
                 <td class="px-6 py-4">
                   <router-link :to="{name : 'ShowPost' , params:{id : cat.id }}"
@@ -78,6 +78,14 @@ export default {
       this.getAll();
     },
     methods: {
+      
+      firstTwoLines(html) {
+      const div = document.createElement('div')
+      div.innerHTML = html
+      const text = div.textContent || div.innerText || ''
+      const lines = text.split('\n')
+      return lines.slice(0, 2).join('\n')
+    },
       getAll() {
         console.log('test')
         axios

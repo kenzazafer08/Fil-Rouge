@@ -35,13 +35,11 @@ class postcontroller extends Controller
             'Title' => $request->Title,
             'text' => $request->text,
             'image' => $image->getClientOriginalName(),
-            'id_cat' => $request->id_cat,
         ]);
         $cat = [
             'Title' => $categorie->Title,
             'text' => $categorie->text,
             'image' => $categorie->image,
-            'categorie' => $categorie->postcat->name,
         ];
         return response()->json($cat,201);
     }
@@ -58,11 +56,14 @@ class postcontroller extends Controller
            'Title' => $post->Title,
            'text' => $post->text,
            'image' => $post->image,
-           'categorie' => $post->postcat->name,
            'comments' => $post->comment
         ];
     
         return response()->json($cat,201);
+    }
+
+    public function count(){
+        return response(["posts" => post::count()]);
     }
 
     /**
@@ -85,7 +86,6 @@ class postcontroller extends Controller
         $cat->Title = $request->Title;
         $cat->text = $request->text;
         $cat->image = $request->$img;
-        $cat->id_cat = $request->id_cat;
 
         $cat->save();
         

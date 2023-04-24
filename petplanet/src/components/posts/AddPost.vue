@@ -32,16 +32,6 @@
                     required
                   />
                 </div>
-                  <div class="m-4">
-                  <label
-                    for="name"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                    >Categorie</label
-                  >
-                  <select v-model="cat_id" class="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option v-for="c in categories" :key="c.id" :value="c.id">{{c.name}}</option>
-                </select>
-                </div>
             <editor
                 v-model="content"
                 :init="{
@@ -79,7 +69,6 @@ export default {
         content: '',
         Title: "",
         image: [],
-        cat_id: '',
         Postimage: "",
         formData: new FormData()
     }
@@ -94,7 +83,6 @@ export default {
         this.formData.set("Title", this.Title);
         this.formData.set("text", this.content);
         this.formData.set("image", this.image);
-        this.formData.set("id_cat", this.cat_id);
         console.log(this.formData);
           axios
             .post("http://127.0.0.1:8000/api/post/store", this.formData, {
