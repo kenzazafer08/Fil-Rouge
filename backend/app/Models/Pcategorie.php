@@ -16,6 +16,6 @@ class Pcategorie extends Model
     use HasFactory;
     public function products()
     {
-        return $this->hasMany(product::class);
+        return $this->hasMany(product::class,'id_categorie');
     }
 }

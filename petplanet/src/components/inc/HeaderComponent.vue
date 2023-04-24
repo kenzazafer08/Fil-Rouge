@@ -168,7 +168,8 @@ export default {
             console.log(response)
             localStorage.clear(); // set the authenticated state to true
             this.authenticated = false,
-            this.user = {}
+            this.user = {},
+            this.$router.push('/');
             })
             .catch(error => {
             console.log(error.response.data);

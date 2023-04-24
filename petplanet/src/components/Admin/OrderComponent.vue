@@ -50,7 +50,7 @@
               <td class="px-6 py-4 flex text-red-700 items-center" v-else-if="order.Status == 0">
                 Canceled
               </td>
-              <td @click="deliver(order.id,2)" class="px-6 py-4 flex justify-center text-green-700" v-else-if="order.Status == 1">
+              <td @click="deliver(order.id,2)" class="px-6 py-4 flex text-green-700" v-else-if="order.Status == 1">
                 <button class="">Delivered</button>
               </td>
               <td class="px-6 py-4 flex items-center text-green-700 font-bold" v-else>
