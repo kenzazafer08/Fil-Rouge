@@ -12,11 +12,11 @@
                 <router-link to="/blog">Blog</router-link>
             </div>
              <img src="./../../assets/whitelogo.png" class="w-16 h-12"/>
-             <div class="w-1/4 text-white flex justify-around items-center"> 
+             <div class="sm:w-1/4 text-white flex justify-around items-center"> 
                 <router-link to="/Profile" v-if="authenticated" class="flex w-1/2 justify-center p-2 items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg> {{ user.name }}</router-link>            
-                <div v-else class="flex w-1/2 justify-center p-2 items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg><router-link to="/login">Sign Up</router-link></div>
+                <router-link v-else to="/login" class="flex w-1/2 justify-center p-2 items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg>Sign Up</router-link>
                 <div class="mr-8 dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
+                <label v-if="authenticated"  tabindex="0" class="btn btn-ghost btn-circle">
                     <div class="indicator">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span class="badge badge-sm indicator-item">{{ cart }}</span>
@@ -37,11 +37,12 @@
         </div>
         <div class="sm:hidden flex justify-between items-center bg-green-700"> 
             <div class="text-white w-1/4 flex items-center"><img src="./../../assets/whitelogo.png" class="ml-4 mr-1 w-12 h-8"/>PetPlanet</div>
-            <div class="w-1/3 text-white flex justify-between items-center">
+            <div class="text-white flex justify-end items-center">
                  
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg>
+                <router-link to="/Profile" v-if="authenticated"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg></router-link>
+                <router-link to="/login" class="px-4" v-else><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="white" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z" clip-rule="evenodd"/></svg></router-link>
                 <div class="dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
+                <label v-if="authenticated" tabindex="0" class="btn btn-ghost btn-circle">
                     <div class="indicator">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span class="badge badge-sm indicator-item">{{ cart }}</span>
