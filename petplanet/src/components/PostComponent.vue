@@ -20,9 +20,9 @@
                 <div class="flex pl-0 space-x-1 sm:pl-2">
                 </div>
             </div>
-            <div class="mt-4 w-full  rounded-sm flex justify-center items-center elx-colm-5 pl-8">
+            <div class="mt-4 w-full  rounded-sm flex-col flex justify-center items-center elx-colm-5 pl-8">
             <div class=" w-full py-4 rounded-full flex justify-between items-center " v-for="comment in post?.comments" :key="comment.id">
-                <p class="pl-10 w-[10%] font-bold text-green-700">{{comment.user.name}}</p>
+                <p class="pl-10 w-[20%] font-bold text-green-700">{{comment.user.name}}</p>
                 <div class="w-[80%] pl-20 px-4 flex justify-start items-center border-green-500 "> 
                 <p class=" text-sm text-justify">{{comment.comment}}</p> 
              </div>
@@ -59,7 +59,6 @@ import Swal from 'sweetalert2'
       console.log(this.product);
       this.formData.append("comment", this.comment);
       console.log(this.formData);
-      if(token){
         axios
           .post("http://127.0.0.1:8000/api/comment/" + this.id, this.formData, {
             headers: {
@@ -88,20 +87,10 @@ import Swal from 'sweetalert2'
             console.log(error.response.data);
             // handle error response
           });
-      }else {
-        Swal.fire({
-              title: "Warning",
-              text: "LogIn first",
-              icon: "warning",
-              confirmButtonColor: "#5D9C59",
-              confirmButtonText: "Done",
-            }).then((result)=>{
-              console.log(result)
-              this.comment = ''
-            })
-      }
+      
       },
       getPost(){
+        if(token){
           axios.get("http://127.0.0.1:8000/api/post/"+this.id,{
               headers: {
                   "Content-Type": "multipart/form-data",
@@ -117,6 +106,19 @@ import Swal from 'sweetalert2'
               console.log(error.data);
               // handle error response
             });
+
+          }else {
+        Swal.fire({
+              title: "Warning",
+              text: "LogIn first",
+              icon: "warning",
+              confirmButtonColor: "#5D9C59",
+              confirmButtonText: "Done",
+            }).then((result)=>{
+              console.log(result)
+              this.$router.push('/login')
+            })
+      }
       },
       image(name){
           return 'http://127.0.0.1:8000/api/images/'+name;

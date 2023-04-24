@@ -36,6 +36,7 @@
 </template>
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
   export default {
     name: 'LoginComponent',
     components :{},
@@ -65,7 +66,13 @@ import axios from 'axios';
         // handle successful response
       })
       .catch(error => {
-        console.log(error.response.data);
+        console.log(error.data);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#5D9C59",
+          text: 'Your email or password is incorrect.',
+        });
         // handle error response
       });
       }
