@@ -87,7 +87,7 @@ export default {
         FormData : new FormData()
     }
   },
-  mounted(){
+  beforeMount(){
     this.getAll()
   },
   methods: {

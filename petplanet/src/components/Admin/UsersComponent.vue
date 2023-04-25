@@ -67,7 +67,7 @@ data(){
         formData : new FormData()
     }
 },
-mounted(){
+beforeMount(){
     this.getAll()
 },
 methods : {

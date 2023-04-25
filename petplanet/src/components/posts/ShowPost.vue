@@ -32,7 +32,7 @@ export default {
         post : {}
     }
   },
-  mounted(){
+  beforeMount(){
     this.getPost()
   },
   methods : {

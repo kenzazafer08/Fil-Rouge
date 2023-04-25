@@ -81,7 +81,7 @@ export default {
         quantity : 1
     }
   },
-  mounted(){
+  beforeMount(){
     this.getproduct()
   },
   methods : {

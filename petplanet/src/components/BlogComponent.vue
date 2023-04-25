@@ -35,7 +35,7 @@
          npost : ''
       }
     },
-    mounted() {
+    beforeMount() {
       this.getPosts();
       this.getNPosts();
     },

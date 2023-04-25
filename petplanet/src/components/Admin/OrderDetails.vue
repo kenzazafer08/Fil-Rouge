@@ -69,7 +69,7 @@ export default {
         order : {}
     }
   },
-  mounted(){
+  beforeMount(){
     console.log('test')
     console.log(this.id)
     this.getOrder(this.id)

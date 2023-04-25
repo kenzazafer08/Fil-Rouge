@@ -67,7 +67,7 @@
         formData : new FormData()
         }
       },
-      mounted(){
+      beforeMount(){
           console.log(this.id);
           this.getCat();
       }

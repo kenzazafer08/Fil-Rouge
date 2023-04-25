@@ -53,7 +53,7 @@ export default {
         formData : new FormData()
     }
   },
-  mounted (){
+  beforeMount(){
     this.getUser()
     this.getCount()
     this.getCart()

@@ -74,7 +74,7 @@ export default {
         posts : [],
     }
   },
-  mounted() {
+  beforeMount() {
       this.getAll();
     },
     methods: {

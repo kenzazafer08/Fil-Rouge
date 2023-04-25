@@ -73,7 +73,7 @@
         pets : '',
       }
     },
-    mounted() {
+    beforeMount() {
       this.statistics();
     },
     methods:{

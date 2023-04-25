@@ -87,7 +87,7 @@ export default {
       posts : []
     }
   },
-  mounted(){
+  beforeMount(){
     this.getCategories()
     this.getPets()
     this.getProducts()

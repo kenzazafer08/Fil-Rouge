@@ -62,7 +62,7 @@ export default {
         formData : new FormData()
     }
   },
-  mounted() {
+  beforeMount() {
     this.getCart()
     this.counts()
   },

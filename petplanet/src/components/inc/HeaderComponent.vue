@@ -99,7 +99,7 @@ export default {
         total : ''
     };
    },
-   mounted(){
+   beforeMount(){
     this.checkAuthentication()
    }
    ,

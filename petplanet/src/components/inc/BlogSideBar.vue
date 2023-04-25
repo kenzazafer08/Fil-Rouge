@@ -83,7 +83,7 @@
               user: {},
           }
       },
-  created() {
+      beforeMount() {
       // check if the user is authenticated on component creation
       this.checkAuthentication();
     },

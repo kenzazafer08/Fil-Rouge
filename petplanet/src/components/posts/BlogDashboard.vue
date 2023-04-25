@@ -47,7 +47,7 @@ export default {
         categories : '',
       }
     },
-    mounted() {
+    beforeMount() {
       this.statistics();
     },
     methods:{

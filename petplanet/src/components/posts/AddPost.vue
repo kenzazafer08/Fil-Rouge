@@ -73,7 +73,7 @@ export default {
         formData: new FormData()
     }
     },
-    mounted(){
+    beforeMount(){
         this.getCategories()
     },
     methods: {

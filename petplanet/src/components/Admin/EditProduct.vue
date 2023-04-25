@@ -148,7 +148,7 @@ export default {
         formData : new FormData()
     }
   },
-  mounted(){
+  beforeMount(){
     this.getCategorie()
     this.getPet()
     this.getProduct()

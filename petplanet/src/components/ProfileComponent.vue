@@ -92,7 +92,7 @@ export default {
         formData : new FormData()
     }
   },
-  mounted(){
+  beforeMount(){
     this.getuser()
     this.getorders()
   },

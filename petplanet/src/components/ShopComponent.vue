@@ -77,7 +77,7 @@
         formData : new FormData()
       }
     },
-    mounted(){
+    beforeMount(){
     this.getCategories()
     this.getPets()
     this.getProducts()

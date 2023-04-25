@@ -51,7 +51,7 @@ import Swal from 'sweetalert2'
           formData : new FormData()
       }
     },
-    mounted(){
+    beforeMount(){
       this.getPost()
     },
     methods : {
