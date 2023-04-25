@@ -77,7 +77,7 @@ class productcontroller extends Controller
     $product = Product::with('review.user')->find($id);
     $cat = [
         'name' => $product->name,
-        'description' => $product->description,
+        'discription' => $product->discription,
         'price' => $product->price,
         'stock' => $product->stock,
         'image' => $product->image,
@@ -117,8 +117,6 @@ class productcontroller extends Controller
         $cat->image = $img;
         $cat->price = $request->price;
         $cat->stock = $request->stock;
-        $cat->id_categorie = $request->id_categorie;
-        $cat->id_pet = $request->id_pet;
 
         $cat->save();
         

@@ -131,7 +131,7 @@ export default {
    confirmDelete(cat) {
       Swal.fire({
         title: "Ok",
-        text: "You are sure you wanna delete this categorie",
+        text: "You are sure you wanna delete this product",
         icon: "warning",
         confirmButtonColor: "#5D9C59",
         confirmButtonText: "Yes I'm sure",
@@ -155,7 +155,7 @@ export default {
           console.log(response);
           Swal.fire({
             title: "Done",
-            text: "Categorie Deleted succesfuly",
+            text: "Product Deleted succesfuly",
             icon: "succes",
             confirmButtonColor: "#5D9C59",
             confirmButtonText: "Done",

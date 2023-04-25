@@ -53,28 +53,6 @@
                   />
                 </div>
             </div>
-            <div class="flex justify-center items-center w-[80%] gap-2 my-4">
-               <div>
-                  <label
-                    for="name"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                    >Categorie</label
-                  >
-                  <select v-model="product.id_categorie" class="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option v-for="c in categorie" :key="c.id" :value="c.id" v-bind:selected="product.id_categorie == c.id">{{c.name}}</option>
-                </select>
-                </div>
-                <div class="">
-                  <label
-                    for="Discription"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                    >Pet</label
-                  >
-                  <select v-model="product.id_pet" class="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option v-for="p in pet" :key="p.id" :value="p.id" v-bind:selected="product.id_pet == p.id">{{p.name}}</option>
-                  </select>
-                </div>
-            </div>
             <div class="flex justify-center items-center w-[80%] gap-2">
                <div>
                   <label
