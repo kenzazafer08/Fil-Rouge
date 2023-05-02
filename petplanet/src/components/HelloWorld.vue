@@ -17,8 +17,8 @@
          <div class="flex flex-col sm:flex-row justify-between items-center m-2"> 
               <div v-for="(item,index) in firstProducts" :key="index" class="flex flex-col justify-around items-center"> 
                  <img :src="image(item.image)"/>
-                 <p>{{item.name}}</p>
-                 <p>{{item.price}}د.م.Price</p>
+                 <router-link :to="{name : 'Detailproduct' , params:{id : item.id }}">{{ item.name }}<br/>{{ item.price}}د.م.Price
+                 </router-link>
               </div>
               <img class="sm:block hidden" src="../assets/Rectangle.png"/>
          </div>
@@ -26,8 +26,8 @@
           <img class="sm:block hidden" src="../assets/Rectangle8.png"/>
           <div v-for="(item,index) in secondProducts" :key="index" class="flex flex-col justify-around items-center"> 
                  <img :src="image(item.image)"/>
-                 <p>{{item.name}}</p>
-                 <p>{{item.price}}د.م.Price</p>
+                 <router-link :to="{name : 'Detailproduct' , params:{id : item.id }}">{{ item.name }}<br/>{{ item.price}}د.م.Price
+                 </router-link>
               </div>
          </div>
      </div>
